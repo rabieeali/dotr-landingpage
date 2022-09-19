@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.tech-bg {
+  /* The image used */
+  background-image: url("./assets//img/tech-bg.png");
+  /* Set a specific height */
+  min-height: 500px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/*   
+  .tech-bg:before{
+    content: "asdasdasdasd";
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } */
+
+.img-banner {
+  background-image: url(./assets/img/banner.png);
+  /* background-attachment: fixed; */
+  /* width: 100vw; */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.neon-btn {
+  position: relative;
+  display: inline-block;
+  padding: 15px 30px;
+  color: #e1e1e1;
+  text-transform: uppercase;
+  /* letter-spacing: 4px; */
+  text-decoration: none;
+  font-size: 24px;
+  overflow: hidden;
+  transition: 0.2s;
+  /* border:1px solid #ccc; */
+}
+
+.neon-btn:hover {
+  color: #fff;
+  background: rgb(89, 102, 134);
+  box-shadow: 0 0 10px rgb(157, 167, 189), 0 0 40px rgb(51, 61, 85),
+    0 0 80px rgb(51, 61, 85);
+  transition-delay: 1s;
+}
+
+.neon-btn span {
+  position: absolute;
+  display: block;
+}
+
+.neon-btn span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgb(51, 61, 85));
+}
+
+.neon-btn:hover span:nth-child(1) {
+  left: 100%;
+  transition: 1s;
+}
+
+.neon-btn span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, rgb(51, 61, 85));
+}
+
+.neon-btn:hover span:nth-child(3) {
+  right: 100%;
+  transition: 1s;
+  transition-delay: 0.5s;
+}
+
+.neon-btn span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, rgb(51, 61, 85));
+}
+
+.neon-btn:hover span:nth-child(2) {
+  top: 100%;
+  transition: 1s;
+  transition-delay: 0.25s;
+}
+
+.neon-btn span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, rgb(51, 61, 85));
+}
+
+.neon-btn:hover span:nth-child(4) {
+  bottom: 100%;
+  transition: 1s;
+  transition-delay: 0.75s;
+}
+
+.bg-darkBlue-700 {
+  background-color: rgb(51, 61, 85);
+}
+
+.bg-card-600 {
+  background-color: rgb(51, 65, 85, 1);
+}
+.bg-card-500 {
+  background-color: rgba(51, 65, 85, 0.9);
+}
+.bg-card-400 {
+  background-color: rgba(51, 65, 85, 0.8);
+}
+.bg-card-300 {
+  background-color: rgba(51, 65, 85, 0.7);
+}
+.bg-card-200 {
+  background-color: rgba(51, 65, 85, 0.6);
+}
+.bg-card-100 {
+  background-color: rgba(51, 65, 85, 0.5);
+}
+
+.media i {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.media i:hover {
+  color: #9b9b9b;
+}
+
+
+.flex-row-reverse{
+  flex-direction: row-reverse;
+}
+
+.g-5{
+  gap:5rem
+}
+
+.justify-center{
+  justify-content: center!important;
+}
+
+.flex-wrap{
+  flex-wrap: wrap;
+}
+
+.login-card {
+  background: rgba( 255, 255, 255, 0.25 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border-radius: 10px;
+  /* border: 1px solid rgba( 255, 255, 255, 0.18 ); */
+
+}
