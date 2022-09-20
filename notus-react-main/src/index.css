@@ -15,19 +15,8 @@
   background-size: cover;
 }
 
-/*   
-  .tech-bg:before{
-    content: "asdasdasdasd";
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  } */
-
 .img-banner {
   background-image: url(./assets/img/banner.png);
-  /* background-attachment: fixed; */
-  /* width: 100vw; */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -39,12 +28,10 @@
   padding: 15px 30px;
   color: #e1e1e1;
   text-transform: uppercase;
-  /* letter-spacing: 4px; */
   text-decoration: none;
   font-size: 24px;
   overflow: hidden;
   transition: 0.2s;
-  /* border:1px solid #ccc; */
 }
 
 .neon-btn:hover {
@@ -168,7 +155,6 @@
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
-  /* border: 1px solid rgba( 255, 255, 255, 0.18 ); */
 }
 
 .rtl {
@@ -184,7 +170,6 @@
 }
 
 .rtl-select {
-
   direction: rtl;
 }
 
@@ -192,3 +177,5 @@
   left: 16px;
   left: auto;
 }
+
+

@@ -1,6 +1,7 @@
 import Select from "components/Select";
 import React, { useState } from "react";
 
+import { toast } from "react-toastify";
 // components
 
 export default function CardSettings() {
@@ -17,21 +18,17 @@ export default function CardSettings() {
     desc: "",
   });
 
-
-
   const onChange = (e) => {
     setTicket((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
-  
-  
+
   const ticketHandler = () => {
-  console.log(ticket);
-
-}
-
+    console.log(ticket);
+    // toast.info(ticket);
+  };
 
   return (
     <>
