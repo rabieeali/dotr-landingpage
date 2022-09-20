@@ -70,3 +70,10 @@ body{
     font-family: iranSansBlack !important;
     font-weight: 900;
 }
+
+.Toastify__toast-body {
+
+    font-family: iranSansRegular !important;
+    font-weight: normal;
+
+}

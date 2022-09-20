@@ -11,6 +11,7 @@ export default function CardStats({
   statIconName,
   statIconColor,
 }) {
+
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
@@ -22,6 +23,7 @@ export default function CardStats({
               </h5>
               <span className="font-semibold text-xl text-blueGray-700">
                 {statTitle}
+             
               </span>
             </div>
             <div className="relative w-auto pl-4 flex-initial">

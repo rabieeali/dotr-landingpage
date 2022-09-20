@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .tech-bg {
   /* The image used */
   background-image: url("./assets//img/tech-bg.png");
@@ -147,29 +146,49 @@
   color: #9b9b9b;
 }
 
-
-.flex-row-reverse{
+.flex-row-reverse {
   flex-direction: row-reverse;
 }
 
-.g-5{
-  gap:5rem
+.g-5 {
+  gap: 5rem;
 }
 
-.justify-center{
-  justify-content: center!important;
+.justify-center {
+  justify-content: center !important;
 }
 
-.flex-wrap{
+.flex-wrap {
   flex-wrap: wrap;
 }
 
 .login-card {
-  background: rgba( 255, 255, 255, 0.25 );
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-  backdrop-filter: blur( 4px );
-  -webkit-backdrop-filter: blur( 4px );
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
   /* border: 1px solid rgba( 255, 255, 255, 0.18 ); */
+}
 
+.rtl {
+  direction: rtl;
+}
+
+.icon-sidebar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.rtl-select {
+
+  direction: rtl;
+}
+
+.rtl-select :after {
+  left: 16px;
+  left: auto;
 }
