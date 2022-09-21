@@ -5,7 +5,7 @@ const UserContext = createContext();
 const UserContextDispatcher = createContext();
 
 const initialState = {
-user:{}
+  user: {},
 };
 
 const UserProvider = ({ children }) => {

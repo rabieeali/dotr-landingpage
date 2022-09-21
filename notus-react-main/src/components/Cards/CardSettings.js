@@ -1,7 +1,9 @@
 import Select from "components/Select";
 import React, { useState } from "react";
-
 import { toast } from "react-toastify";
+
+import { useTicket, useTicketActions } from "../../context/TicketProvider";
+
 // components
 
 export default function CardSettings() {
@@ -16,6 +18,7 @@ export default function CardSettings() {
     name: "",
     tel: "",
     desc: "",
+    date: new Date().toLocaleDateString("fa-IR"),
   });
 
   const onChange = (e) => {
@@ -25,10 +28,24 @@ export default function CardSettings() {
     }));
   };
 
+  const dispatch = useTicketActions();
+  const state = useTicket();
+
   const ticketHandler = () => {
-    console.log(ticket);
-    // toast.info(ticket);
+    if (
+      ticket.title.length === 0 ||
+      ticket.name.length === 0 ||
+      ticket.tel.length === 0 ||
+      ticket.desc.length === 0
+    ) {
+      toast.error("موارد خالی را پر کنید");
+    } else {
+      // بفرستیم سمت بکند
+      dispatch({ type: "SAVE_TICKET", payload: ticket });
+    }
   };
+
+  // console.log(state);
 
   return (
     <>
@@ -46,7 +63,7 @@ export default function CardSettings() {
               ثبت اطلاعات
             </h6>
             <div className="flex flex-wrap">
-              <div className="w-full  px-4">
+              <div className="w-full md:w-4/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -57,7 +74,7 @@ export default function CardSettings() {
                   <Select options={options} name="title" onChange={onChange} />
                 </div>
               </div>
-              <div className="w-full lg:w-6/12 px-4">
+              <div className="w-full md:w-4/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -74,7 +91,7 @@ export default function CardSettings() {
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-6/12 px-4">
+              <div className="w-full md:w-4/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"

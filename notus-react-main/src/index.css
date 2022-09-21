@@ -178,4 +178,6 @@
   left: auto;
 }
 
-
+.divider {
+  border-bottom: #e1e1e1 1px solid;
+}

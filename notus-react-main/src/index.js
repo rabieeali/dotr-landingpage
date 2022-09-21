@@ -18,28 +18,31 @@ import Index from "views/Index.js";
 import Ticket from "views/Ticket";
 import NotFound from "views/NotFound";
 import UserProvider from "context/UserProvider";
+import TicketProvider from "context/TicketProvider";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.render(
   <UserProvider>
-    <BrowserRouter>
-      <Switch>
-        {/* add routes with layouts */}
-        <Route path="/panel" component={Admin} />
-        <Route path="/auth" component={Auth} />
-        {/* add routes without layouts */}
-        <Route path="/landing" exact component={Landing} />
-        <Route path="/profile" exact component={Profile} />
-        <Route path="/" exact component={Index} />
-        <Route path="/ticket" exact component={Ticket} />
-        <Route path="/notFound" exact component={NotFound} />
-        {/* add redirect for first page */}
-        <Redirect from="*" to="/auth/login" />
-      </Switch>
-    </BrowserRouter>
-    <ToastContainer />
+    <TicketProvider>
+      <BrowserRouter>
+        <Switch>
+          {/* add routes with layouts */}
+          <Route path="/panel" component={Admin} />
+          <Route path="/auth" component={Auth} />
+          {/* add routes without layouts */}
+          <Route path="/landing" exact component={Landing} />
+          <Route path="/profile" exact component={Profile} />
+          <Route path="/" exact component={Index} />
+          <Route path="/ticket" exact component={Ticket} />
+          <Route path="/notFound" exact component={NotFound} />
+          {/* add redirect for first page */}
+          <Redirect from="*" to="/notFound" />
+        </Switch>
+      </BrowserRouter>
+      <ToastContainer />
+    </TicketProvider>
   </UserProvider>,
   document.getElementById("root")
 );

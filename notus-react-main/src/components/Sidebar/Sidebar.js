@@ -95,32 +95,11 @@ const style={
             {/* Navigation */}
 
             <ul style={style} className="md:flex-col md:min-w-full flex flex-col list-none">
-              <li className="items-center">
+            <li className="items-center">
                 <Link
                   className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/dashboard") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                  to="/panel/dashboard"
-                >
-                  <i
-                    className={
-                      "fas fa-tv ml-2 text-sm " +
-                      (window.location.href.indexOf("/admin/dashboard") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
-                  داشبورد
-                </Link>
-              </li>
 
-              <li className="items-center">
-                <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
+                    "py-3 font-bold block " +
                     (window.location.href.indexOf("/admin/settings") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
@@ -129,7 +108,7 @@ const style={
                 >
                   <i
                     className={
-                      "fas fa-tools ml-2 text-sm " +
+                      "fa fa-ticket-alt text-lg ml-2  " +
                       (window.location.href.indexOf("/admin/settings") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
@@ -138,6 +117,30 @@ const style={
                   درخواست تیکت
                 </Link>
               </li>
+
+              <li className="items-center">
+                <Link
+                  className={
+                    " py-3 font-bold block " +
+                    (window.location.href.indexOf("/admin/dashboard") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }
+                  to="/panel/dashboard"
+                >
+                  <i
+                    className={
+                      "fas fa-folder text-lg ml-2 " +
+                      (window.location.href.indexOf("/admin/dashboard") !== -1
+                        ? "opacity-75"
+                        : "text-blueGray-300")
+                    }
+                  ></i>{" "}
+                  سوابق
+                </Link>
+              </li>
+
+            
 
               {/* <li className="items-center">
                 <Link

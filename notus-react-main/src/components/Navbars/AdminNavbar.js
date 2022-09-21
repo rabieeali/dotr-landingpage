@@ -3,8 +3,34 @@ import React from "react";
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
 
 export default function Navbar() {
-  let today = new Date().toLocaleDateString('fa-IR-u-nu-latn');
+  let date = new Date().toLocaleDateString("fa-IR-u-nu-latn");
+  const d = new Date();
+  let day = d.getDay();
+  console.log(day);
 
+  function farsiDay(day) {
+    if (day === 1) {
+      return "دوشنبه";
+    }
+    if (day === 2) {
+      return "سه شنبه";
+    }
+    if (day === 3) {
+      return "چهارشنبه";
+    }
+    if (day === 4) {
+      return "پنج شنبه";
+    }
+    if (day === 5) {
+      return "جمعه";
+    }
+    if (day === 6) {
+      return "شنبه";
+    }
+    if (day === 0) {
+      return "یکشنبه";
+    }
+  }
 
   return (
     <>
@@ -12,13 +38,14 @@ export default function Navbar() {
       <nav className="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center bg-darkBlue-700 p-4">
         <div className="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4 ">
           {/* Brand */}
-          <a
-            className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
+          <p
+            className="rtl text-white text-sm uppercase hidden lg:inline-block font-semibold"
             href="#pablo"
             onClick={(e) => e.preventDefault()}
           >
-      {today}   : امروز
-          </a>
+          امروز :   {date} - {farsiDay(day)}  
+            
+          </p>
           {/* Form */}
           <form className="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
             <div className="relative flex w-full flex-wrap items-stretch">
@@ -33,9 +60,9 @@ export default function Navbar() {
             </div>
           </form>
           {/* User */}
-          <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
+          {/* <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
             <UserDropdown />
-          </ul>
+          </ul> */}
         </div>
       </nav>
       {/* End Navbar */}
