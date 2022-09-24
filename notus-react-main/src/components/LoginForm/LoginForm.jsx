@@ -3,13 +3,13 @@ import { Link, useHistory } from "react-router-dom";
 
 import { toast } from "react-toastify";
 
-import { useAuth, useAuthActions } from "../../context/UserProvider";
+import { useAuth } from "context/AuthProvider";
+import axios from "api/axios";
 
 const LoginForm = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ username: "", password: "" });
 
-  const dispatch = useAuthActions();
-  const state = useAuth();
+  const { auth, setAuth } = useAuth();
   const history = useHistory();
 
   const onChange = (e) => {
@@ -19,17 +19,29 @@ const LoginForm = () => {
     }));
   };
 
-  const loginHandler = (formData) => {
-    dispatch({ type: "USER_LOGIN", payload: formData });
-    if (formData.email === "admin" && formData.password === "admin") {
-      toast.success(`عزیز خوش آمدی ${formData.email}`);
-      history.push("/panel/ticket");
+  const nam = "info@dotrco.com";
+  const ramz = "0062337793";
+
+  const loginHandler = async (formData) => {
+    history.push('/panel/ticket')
+    const response = await axios.post(
+      "/api/auth",
+      { headers: { "Content-Type": "acpplication/json" } },
+      formData
+    );
+
+    if (response?.data) {
+      const { username, accessToken } = response;
+      localStorage.setItem("auth", accessToken);
+      // or
+      setAuth({ username, accessToken });
+      toast.success(`عزیز خوش آمدی ${username}`);
     } else {
-      toast.error("کاربر وجود ندارد");
-      history.push("/");
+      toast.error("نام کاربری یا رمز عبور اشتباه است");
     }
+    setFormData({ username: "", password: "" });
   };
-  console.log(state.user);
+
   return (
     <>
       <div className="flex content-center items-center justify-center h-full">
@@ -45,14 +57,15 @@ const LoginForm = () => {
                     className="block uppercase text-white text-xs text-right font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    ایمیل
+                    نام کاربری
                   </label>
                   <input
-                    name="email"
+                    value={nam}
+                    name="username"
                     onChange={onChange}
-                    type="email"
+                    type="text"
                     className="text-right border-0 px-3 py-3 placeholder-blueGray-300 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="ایمیل"
+                    placeholder="نام کاربری"
                   />
                 </div>
 
@@ -64,6 +77,7 @@ const LoginForm = () => {
                     پسورد
                   </label>
                   <input
+                    value={ramz}
                     name="password"
                     onChange={onChange}
                     type="password"
@@ -85,7 +99,6 @@ const LoginForm = () => {
                 </div>
 
                 <div className="text-center mt-6">
-                  {/* <Link to={formData.email && formData.password ? '/ticketing' : '/notFound'}> */}
                   <button
                     onClick={() => loginHandler(formData)}
                     className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
@@ -93,7 +106,6 @@ const LoginForm = () => {
                   >
                     ورود
                   </button>
-                  {/* </Link> */}
                 </div>
               </form>
             </div>

@@ -25,8 +25,8 @@
 .neon-btn {
   position: relative;
   display: inline-block;
-  padding: 15px 30px;
-  color: #e1e1e1;
+  padding: 15px 100px;
+  color: rgb(67, 161, 238);
   text-transform: uppercase;
   text-decoration: none;
   font-size: 24px;
@@ -181,3 +181,8 @@
 .divider {
   border-bottom: #e1e1e1 1px solid;
 }
+
+
+.map-container {
+  height: 400px;
+  }

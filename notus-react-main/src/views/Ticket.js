@@ -15,6 +15,7 @@ const Ticket = () => {
         </h1>
 
         <Sidebar className="w-full md:w-5/12 px-4" />
+    
       </main>
     </>
   );

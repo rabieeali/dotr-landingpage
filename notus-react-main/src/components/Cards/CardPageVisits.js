@@ -1,12 +1,9 @@
-import { useTicket } from "../../context/TicketProvider";
+
 
 // components
 
 export default function CardPageVisits() {
-  const tickets = useTicket();
-  const newTickets = tickets.ticket;
-  const state = [newTickets];
-  console.log(state);
+
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
@@ -50,7 +47,7 @@ export default function CardPageVisits() {
               </tr>
             </thead>
             <tbody>
-              {state !== undefined &&
+              {/* {state !== undefined &&
                 state.map((ticket, index) => (
                   <tr className="divider text-right border-bottom">
                     <th className="text-right border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
@@ -71,7 +68,7 @@ export default function CardPageVisits() {
                       {ticket && Math.random() * 1000}
                     </td>
                   </tr>
-                ))}
+                ))} */}
             </tbody>
           </table>
         </div>

@@ -1,12 +1,18 @@
+import Comment from "components/Comment";
 import Select from "components/Select";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-
-import { useTicket, useTicketActions } from "../../context/TicketProvider";
+import { useComment } from "context/CommentProvider";
 
 // components
 
+
 export default function CardSettings() {
+
+
+  const { comment, setComment } = useComment();
+
+
   const options = [
     { title: "", value: "" },
     { title: "زیر ساخت و شبکه", value: "network" },
@@ -21,15 +27,14 @@ export default function CardSettings() {
     date: new Date().toLocaleDateString("fa-IR"),
   });
 
+  const [msg, setMsg] = useState("");
+
   const onChange = (e) => {
     setTicket((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
-
-  const dispatch = useTicketActions();
-  const state = useTicket();
 
   const ticketHandler = () => {
     if (
@@ -40,8 +45,10 @@ export default function CardSettings() {
     ) {
       toast.error("موارد خالی را پر کنید");
     } else {
-      // بفرستیم سمت بکند
-      dispatch({ type: "SAVE_TICKET", payload: ticket });
+      setComment(ticket);
+      setMsg({ msg: ticket.desc, date: ticket.date });
+      setTicket({ title: "", name: "", tel: "", desc: "" });
+      toast.success("پیام شما با موفقیت ثبت شد")
     }
   };
 
@@ -71,7 +78,12 @@ export default function CardSettings() {
                   >
                     موضوع
                   </label>
-                  <Select options={options} name="title" onChange={onChange} />
+                  <Select
+                    value={ticket.title}
+                    options={options}
+                    name="title"
+                    onChange={onChange}
+                  />
                 </div>
               </div>
               <div className="w-full md:w-4/12 px-4">
@@ -83,6 +95,7 @@ export default function CardSettings() {
                     نام کاربری
                   </label>
                   <input
+                    value={ticket.name}
                     onChange={onChange}
                     name="name"
                     type="email"
@@ -100,6 +113,7 @@ export default function CardSettings() {
                     شماره تماس
                   </label>
                   <input
+                    value={ticket.tel}
                     onChange={onChange}
                     name="tel"
                     type="text"
@@ -125,6 +139,7 @@ export default function CardSettings() {
                     چگونه میتوانیم کمکتان کنیم؟
                   </label>
                   <textarea
+                    value={ticket.desc}
                     onChange={onChange}
                     name="desc"
                     type="text"
@@ -146,6 +161,7 @@ export default function CardSettings() {
           </form>
         </div>
       </div>
+      {msg && <Comment message={msg} />}
     </>
   );
 }
