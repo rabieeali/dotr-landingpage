@@ -39,7 +39,7 @@ export default function Index() {
                 راه حل نهایی مسائل شما
               </h2>
               <div className="mt-10 px-12">
-                <Link to="/auth/login" className="neon-btn" target="_blank">
+                <Link to="/auth" className="neon-btn" target="_blank">
                   <span></span>
                   <span></span>
                   <span></span>

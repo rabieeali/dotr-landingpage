@@ -3,15 +3,15 @@ import Select from "components/Select";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useComment } from "context/CommentProvider";
+import useAuth from "hooks/useAuth";
 
-// components
-
+// component
 
 export default function CardSettings() {
-
+  const { auth, setAuth } = useAuth();
+  console.log(auth);
 
   const { comment, setComment } = useComment();
-
 
   const options = [
     { title: "", value: "" },
@@ -48,7 +48,7 @@ export default function CardSettings() {
       setComment(ticket);
       setMsg({ msg: ticket.desc, date: ticket.date });
       setTicket({ title: "", name: "", tel: "", desc: "" });
-      toast.success("پیام شما با موفقیت ثبت شد")
+      toast.success("پیام شما با موفقیت ثبت شد");
     }
   };
 

@@ -186,3 +186,7 @@
 .map-container {
   height: 400px;
   }
+
+  .text-danger {
+color: #ff5252;
+  }

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/styles/tailwind.css";
@@ -12,35 +12,43 @@ import Auth from "layouts/Auth.js";
 
 // views without layouts
 
-import Landing from "views/Landing.js";
-import Profile from "views/Profile.js";
 import Index from "views/Index.js";
 import Ticket from "views/Ticket";
 import NotFound from "views/NotFound";
 import { AuthProvider } from "context/AuthProvider";
-import  CommentProvider  from "context/CommentProvider";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Dashboard from "views/admin/Dashboard";
+import Settings from "views/admin/Settings";
+import PersistLogin from "components/PersistLogin";
+import RequireAuth from "components/RequireAuth";
+import Layout from "components/Layout";
 
 ReactDOM.render(
   <AuthProvider>
-    <CommentProvider>
-      <BrowserRouter>
-        <Switch>
-          {/* add routes with layouts */}
-          <Route path="/panel" component={Admin} />
-          <Route path="/auth" component={Auth} />
-          {/* add routes without layouts */}
-          <Route path="/" exact component={Index} />
-          <Route path="/ticket" exact component={Ticket} />
-          <Route path="/notFound" exact component={NotFound} />
-          {/* add redirect for first page */}
-          <Redirect from="*" to="/notFound" />
-        </Switch>
-      </BrowserRouter>
-      <ToastContainer />
-    </CommentProvider>
+    <BrowserRouter>
+      <Routes>
+        {/* pblic routes */}
+        <Route path="/" element={<Index />} />
+        <Route path="/auth" element={<Auth />} />
+
+        {/* auth required routes */}
+      
+          <Route element={<PersistLogin />}>
+            <Route element={<RequireAuth />}>
+              <Route path="/history" element={<Dashboard />} />
+            </Route>
+            <Route element={<RequireAuth />}>
+              <Route path="/request-ticket" element={<Settings />} />
+            </Route>
+          </Route>
+     
+
+        {/* <Route path="*" element={<NotFound />} /> */}
+      </Routes>
+    </BrowserRouter>
+    <ToastContainer />
   </AuthProvider>,
   document.getElementById("root")
 );

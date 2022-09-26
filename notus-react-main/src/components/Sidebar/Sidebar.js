@@ -104,7 +104,7 @@ const style={
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/panel/ticket"
+                  to="/request-ticket"
                 >
                   <i
                     className={
@@ -126,7 +126,7 @@ const style={
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/panel/dashboard"
+                  to="/history"
                 >
                   <i
                     className={
