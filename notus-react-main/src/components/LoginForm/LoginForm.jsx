@@ -83,9 +83,9 @@ const LoginForm = () => {
       // const roles = jResponse?.Roles.replace("[", "")
       //   .replace("]", "")
       //   .split(",");
-      // const forms = jResponse?.Forms.replace("[", "")
-      //   .replace("]", "")
-      //   .split(",");
+      const forms = jResponse?.Forms.replace("[", "")
+        .replace("]", "")
+        .split(",");
       const userId = jResponse?.UserId;
       const accessToken = jResponse?.AccessToken;
       const name = jResponse?.Name;
@@ -105,6 +105,7 @@ const LoginForm = () => {
         fullName,
         userTypeName,
         userName,
+        forms
       });
 
       console.log("auth", auth);
@@ -189,7 +190,7 @@ const LoginForm = () => {
                     name="password"
                     type="password"
                     className="text-right border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="پسورد"
+                    placeholder="0062337793"
                   />
                 </div>
                 <div className="flex justify-end mt-3">
@@ -200,10 +201,8 @@ const LoginForm = () => {
                     <input
                       type="checkbox"
                       id="persist"
-                      // onChange={toggleCheck}
-                      onChange={tickHandler}
-                      value={tick}
-                      checked={tick}
+                      onChange={toggleCheck}
+                      checked={check}
                       className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
                     />
                   </label>

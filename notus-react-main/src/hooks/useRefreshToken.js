@@ -1,6 +1,10 @@
 import axios from '../api/axios';
 import useAuth from './useAuth';
-const REFRESH_URL = '../../api/refresh';
+
+
+
+
+const REFRESH_URL = '/api/refresh';
 
 const useRefreshToken = () => {
     const { setAuth } = useAuth();
@@ -19,7 +23,7 @@ const useRefreshToken = () => {
             //console.log(response.data.accessToken);
             return {
                 ...prev,
-                roles : jResponse?.Roles.replace('[','').replace(']','').split(','),
+                // roles : jResponse?.Roles.replace('[','').replace(']','').split(','),
                 forms : jResponse?.Forms.replace('[','').replace(']','').split(','),
                 userId : jResponse?.UserId,
                 accessToken :jResponse?.AccessToken,

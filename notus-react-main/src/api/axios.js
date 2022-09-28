@@ -4,6 +4,25 @@ const LOCAL_URL = "http://192.168.10.252:8800";
 //const BASE_URL = 'http://localhost:8365/';
 const BASE_URL = "http://nezarat.sbmu.ac.ir:8800/";
 
+
+
+
+
+
+
+
+// TicketId
+// TicketDetailId
+// TicketProjectId
+// TicketStatusId
+// TicketTypeId
+// Title
+// Text
+
+
+
+
+
 export default axios.create({
   baseURL: window.location.hostname.toLowerCase().includes("localhost")
     ? LOCAL_URL

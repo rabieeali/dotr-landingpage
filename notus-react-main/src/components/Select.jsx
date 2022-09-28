@@ -1,6 +1,8 @@
-import { useState } from "react";
 
 const Select = ({ value, options, name, onChange }) => {
+
+  console.log(options)
+
   return (
     <>
       <select
@@ -10,7 +12,7 @@ const Select = ({ value, options, name, onChange }) => {
         value={value}
       >
         {options.map((option, index) => (
-          <option key={index} className=" " value={option.value}>
+          <option key={index} className="rtl" value={option.value}>
             {option.title}
           </option>
         ))}

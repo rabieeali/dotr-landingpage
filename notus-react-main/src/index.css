@@ -173,7 +173,7 @@
   direction: rtl;
 }
 
-.rtl-select :after {
+.rtl-select:after {
   left: 16px;
   left: auto;
 }
@@ -182,11 +182,11 @@
   border-bottom: #e1e1e1 1px solid;
 }
 
-
 .map-container {
   height: 400px;
-  }
+}
 
-  .text-danger {
-color: #ff5252;
-  }
+.text-danger {
+  color: #ff5252;
+}
+

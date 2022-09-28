@@ -3,6 +3,8 @@ import React from "react";
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
 import { Link } from "react-router-dom";
 
+import Clock from 'react-live-clock';
+
 export default function Navbar() {
   let date = new Date().toLocaleDateString("fa-IR-u-nu-latn");
   const d = new Date();
@@ -35,17 +37,24 @@ export default function Navbar() {
   return (
     <>
       {/* Navbar */}
-      <nav className="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center bg-darkBlue-700 p-4">
-        <div className="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4 mt-10">
+      <nav className="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center bg-darkBlue-700 ">
+        <div className="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
           {/* Brand */}
-          <p className="text-white text-2xl inline-block font-semibold">
-            <span className="px-4">{date}</span>
+          <div className="text-white inline-block font-semibold p-3">
             <span className="text-lightBlue-500">{farsiDay(day)}</span>
-          </p>
+            <span className="px-3">{date}</span>
+            <br/>
+            <div className="px-3">
+            <Clock format={'HH:mm:ss'} 
+            ticking={true} 
+            // timezone={'IR'} 
+            />
+            </div>
+          </div>
           <p className="text-2xl text-white font-semibold">
             فناوری هوشمند داتار
           </p>
-  
+
           {/* Form */}
           {/* <form className="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
             <div className="relative flex w-full flex-wrap items-stretch">

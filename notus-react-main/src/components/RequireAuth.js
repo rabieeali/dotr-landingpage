@@ -5,7 +5,7 @@ const RequireAuth = ({ allowedForms }) => {
     const { auth } = useAuth();
     const location = useLocation();
 //console.log("auth forms>>", auth.forms)
-//console.log("allowedForms>>", allowedForms)
+console.log("allowedForms>>", allowedForms)
     return (
         auth?.forms?.find(form => allowedForms?.includes(form))
             ? <Outlet />

@@ -1,62 +1,161 @@
 import Comment from "components/Comment";
-import Select from "components/Select";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { useComment } from "context/CommentProvider";
-import useAuth from "hooks/useAuth";
+import Select from "react-select";
 
-// component
+import useAuth from "hooks/useAuth";
+import useAxiosPrivate from "hooks/useAxiosPrivate";
 
 export default function CardSettings() {
-  const { auth, setAuth } = useAuth();
-  console.log(auth);
+  const { auth } = useAuth();
 
-  const { comment, setComment } = useComment();
+  const [ticketDesc, setTicketDesc] = useState("");
+  const [ticketTitle, setTicketTitle] = useState("");
 
-  const options = [
-    { title: "", value: "" },
-    { title: "زیر ساخت و شبکه", value: "network" },
-    { title: "نرم افزار و پایگاه داده", value: "software" },
-  ];
+  const [selectedTicketType, setSelectedTicketType] = useState(null);
+  const [optionTicketType, setOptionTicketType] = useState("");
+
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [optionProject, setOptionProject] = useState("");
+
+  const axiosPrivate = useAxiosPrivate();
+
+  // انتخاب موضوع پروژه
+
+  const loadTicketTypeCombo = async () => {
+    const controller = new AbortController();
+
+    const optionsGroupUrl = "/api/ticket/Gettables/0"; //0=>> 8 just groups of this user
+
+    const responseOptionsGroup = await axiosPrivate.get(optionsGroupUrl, {
+      signal: controller.signal,
+    });
+    let jResponseOptionsGroup = JSON.parse(responseOptionsGroup?.data);
+
+    // console.log("one", jResponseOptionsGroup);
+
+    jResponseOptionsGroup = jResponseOptionsGroup.map(
+      ({ TicketTypeId, TicketTypeName }) => {
+        return {
+          label: TicketTypeName,
+          value: TicketTypeId,
+        };
+      }
+    );
+
+    let og = [
+      {
+        label: "موضوع پروژه",
+        options: [],
+      },
+    ];
+    og[0].options = jResponseOptionsGroup;
+
+    setOptionTicketType(og);
+  };
+
+  function handleSelectTickettype(value) {
+    setSelectedTicketType(value);
+  }
+
+  // انتخاب پروژه مربوطه
+
+  const loadProjectCombo = async () => {
+    const controller = new AbortController();
+
+    const optionsGroupUrl = "/api/ticket/Gettables/2"; //0=>> 8 just groups of this user
+
+    const responseOptionsGroup = await axiosPrivate.get(optionsGroupUrl, {
+      signal: controller.signal,
+    });
+    let jResponseOptionsGroup = JSON.parse(responseOptionsGroup?.data);
+
+    // setSelectedTicketType(jResponseOptionsGroup);
+    // console.log("filteredProjects", filteredProjects);
+
+    if (selectedTicketType == null) {
+      return;
+    }
+    console.log("selectedTicketType", selectedTicketType);
+
+    let filteredProjects = jResponseOptionsGroup?.filter(
+      (item) => item.TicketTypeId == selectedTicketType.value
+    );
+
+    console.log("filteredProjects", filteredProjects);
+
+    filteredProjects = filteredProjects?.map(
+      ({ TicketProjectId, TicketProjectName }) => {
+        return {
+          label: TicketProjectName,
+          value: TicketProjectId,
+        };
+      }
+    );
+
+    let og = [
+      {
+        label: "نوع پروژه",
+        options: [],
+      },
+    ];
+    og[0].options = filteredProjects;
+
+    setOptionProject(og);
+  };
+
+  function handleSelectProject(value) {
+    setSelectedProject(value);
+  }
+
+  useEffect(() => {
+    loadTicketTypeCombo();
+  }, [window.location.pathname]);
+
+  useEffect(() => {
+    loadProjectCombo();
+  }, [selectedTicketType]);
 
   const [ticket, setTicket] = useState({
     title: "",
-    name: "",
-    tel: "",
     desc: "",
     date: new Date().toLocaleDateString("fa-IR"),
   });
 
   const [msg, setMsg] = useState("");
 
-  const onChange = (e) => {
-    setTicket((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  // const onChange = (e) => {
+  //   setTicket((prevState) => ({
+  //     ...prevState,
+  //     [e.target.name]: e.target.value,
+  //   }));
+  // };
 
-  const ticketHandler = () => {
-    if (
-      ticket.title.length === 0 ||
-      ticket.name.length === 0 ||
-      ticket.tel.length === 0 ||
-      ticket.desc.length === 0
-    ) {
+  const ticketHandler = async (e) => {
+    e.preventDefault();
+    if (ticketTitle.length === 0 || ticketDesc.length === 0) {
       toast.error("موارد خالی را پر کنید");
     } else {
-      setComment(ticket);
-      setMsg({ msg: ticket.desc, date: ticket.date });
-      setTicket({ title: "", name: "", tel: "", desc: "" });
+      await axiosPrivate.post("/api/ticket", {
+        TicketId: 0,
+        TicketDetailId: 0,
+        TicketProjectId,
+        TicketTypeId,
+        TicketStatusId,
+        Title,
+        Text,
+      });
+
+      setTicketDesc("");
+      setTicketTitle("");
+console.log(ticketTitle,ticketDesc)
       toast.success("پیام شما با موفقیت ثبت شد");
     }
   };
 
-  // console.log(state);
-
   return (
     <>
-      <div className="rtl relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
+      <div className="rtl relative flex flex-col min-w-0 break-words w-full shadow-lg rounded-lg bg-blueGray-100 border-0">
         <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
             <h6 className="text-blueGray-700 text-xl font-bold">
@@ -76,17 +175,42 @@ export default function CardSettings() {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    موضوع
+                    نوع پروژه
                   </label>
                   <Select
-                    value={ticket.title}
-                    options={options}
-                    name="title"
-                    onChange={onChange}
+                    name="cmbPlaceGroup"
+                    value={selectedTicketType}
+                    className="border-0  placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    // defaultValue={"37"}
+                    onChange={handleSelectTickettype}
+                    options={optionTicketType}
+                    classNamePrefix="select2-selection"
+                    // isDisabled={!GetUserRole(2)}
                   />
                 </div>
               </div>
               <div className="w-full md:w-4/12 px-4">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    انتخاب پروژه
+                  </label>
+                  <Select
+                    name="cmbProjectGroup"
+                    value={selectedProject}
+                    className="border-0  placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    // defaultValue={"37"}
+                    onChange={handleSelectProject}
+                    options={optionProject}
+                    classNamePrefix="select2-selection"
+                    isDisabled={selectedTicketType === null}
+                  />
+                </div>
+              </div>
+
+              {/* <div className="w-full md:w-4/12 px-4">
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -95,33 +219,15 @@ export default function CardSettings() {
                     نام کاربری
                   </label>
                   <input
-                    value={ticket.name}
-                    onChange={onChange}
+                    value={auth.userName}
+                    readOnly
                     name="name"
                     type="email"
-                    className="border-0  px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    className="cursor-not-allowed border-0  px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder="user@example.com"
                   />
                 </div>
-              </div>
-              <div className="w-full md:w-4/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    شماره تماس
-                  </label>
-                  <input
-                    value={ticket.tel}
-                    onChange={onChange}
-                    name="tel"
-                    type="text"
-                    className="border-0 text-left px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="...0912"
-                  />
-                </div>
-              </div>
+              </div> */}
             </div>
 
             <hr className="mt-6 border-b-1 border-blueGray-300" />
@@ -131,6 +237,25 @@ export default function CardSettings() {
             </h6>
             <div className="flex flex-wrap">
               <div className="w-full lg:w-12/12 px-4">
+                <div className="w-full  md:w-4/12 px-4">
+                  <div className="relative w-full mb-8">
+                    <label
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                      htmlFor="grid-password"
+                    >
+                      عنوان تیکت
+                    </label>
+                    <input
+                      value={ticketTitle}
+                      onChange={(e) => setTicketTitle(e.target.value)}
+                      name="ticketTitle"
+                      type="text"
+                      className="border-0  px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      placeholder=""
+                    />
+                  </div>
+                </div>
+
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -139,13 +264,13 @@ export default function CardSettings() {
                     چگونه میتوانیم کمکتان کنیم؟
                   </label>
                   <textarea
-                    value={ticket.desc}
-                    onChange={onChange}
+                    value={ticketDesc}
+                    onChange={(e) => setTicketDesc(e.target.value)}
                     name="desc"
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     rows="4"
-                    placeholder="درخواست مشاوره برای ..."
+                    placeholder=" مشاوره برای ..."
                   ></textarea>
                 </div>
               </div>
@@ -153,8 +278,8 @@ export default function CardSettings() {
             <button
               onClick={ticketHandler}
               style={{ float: "left", marginLeft: "10px" }}
-              className="rtl flex bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-              type="button"
+              className={`  rtl flex bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150`}
+              type="submit"
             >
               ثبت درخواست
             </button>

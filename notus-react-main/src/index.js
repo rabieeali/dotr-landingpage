@@ -25,6 +25,18 @@ import PersistLogin from "components/PersistLogin";
 import RequireAuth from "components/RequireAuth";
 import Layout from "components/Layout";
 
+const FORMS = {
+  "/": "0", //	صفحه اصلی
+  "users": "1", //	لیست کاربران
+  "profile": "2", //	پروفایل کاربر
+  "userSecurity": "3", //	دسترسی کاربران
+  "securityGroups": "4", //	گروههای دسترسی
+  "changePassword": "5", //	تغییر رمز عبور
+  "history": "8", //	تیکت های من
+  "requestTicket": "9", //	تیکت پشتیبانی
+  "ticket-manage": "10", //	مدیریت تیکت ها
+};
+
 ReactDOM.render(
   <AuthProvider>
     <BrowserRouter>
@@ -34,16 +46,15 @@ ReactDOM.render(
         <Route path="/auth" element={<Auth />} />
 
         {/* auth required routes */}
-      
-          <Route element={<PersistLogin />}>
-            <Route element={<RequireAuth />}>
-              <Route path="/history" element={<Dashboard />} />
-            </Route>
-            <Route element={<RequireAuth />}>
-              <Route path="/request-ticket" element={<Settings />} />
-            </Route>
+
+        <Route element={<PersistLogin />}>
+          <Route element={<RequireAuth allowedForms={[FORMS.history]} />}>
+            <Route path="/history" element={<Dashboard />} />
           </Route>
-     
+          <Route element={<RequireAuth allowedForms={[FORMS.requestTicket]} />}>
+            <Route path="/request-ticket" element={<Settings />} />
+          </Route>
+        </Route>
 
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
