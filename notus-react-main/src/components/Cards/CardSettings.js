@@ -139,16 +139,16 @@ export default function CardSettings() {
       await axiosPrivate.post("/api/ticket", {
         TicketId: 0,
         TicketDetailId: 0,
-        TicketProjectId,
-        TicketTypeId,
-        TicketStatusId,
-        Title,
-        Text,
+        TicketProjectId: selectedProject.value,
+        TicketTypeId: selectedProject.value,
+        TicketStatusId: 0,
+        Title: ticketTitle,
+        Text: ticketDesc,
       });
 
       setTicketDesc("");
       setTicketTitle("");
-console.log(ticketTitle,ticketDesc)
+      // console.log(ticketTitle, ticketDesc);
       toast.success("پیام شما با موفقیت ثبت شد");
     }
   };
