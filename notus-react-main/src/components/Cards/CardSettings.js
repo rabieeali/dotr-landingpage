@@ -1,14 +1,12 @@
 import Comment from "components/Comment";
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast, { Toaster } from 'react-hot-toast';
 import Select from "react-select";
 
-import useAuth from "hooks/useAuth";
 import useAxiosPrivate from "hooks/useAxiosPrivate";
 
 export default function CardSettings() {
-  const { auth } = useAuth();
-
   const [ticketDesc, setTicketDesc] = useState("");
   const [ticketTitle, setTicketTitle] = useState("");
 
@@ -116,40 +114,35 @@ export default function CardSettings() {
     loadProjectCombo();
   }, [selectedTicketType]);
 
-  const [ticket, setTicket] = useState({
-    title: "",
-    desc: "",
-    date: new Date().toLocaleDateString("fa-IR"),
-  });
-
-  const [msg, setMsg] = useState("");
-
-  // const onChange = (e) => {
-  //   setTicket((prevState) => ({
-  //     ...prevState,
-  //     [e.target.name]: e.target.value,
-  //   }));
-  // };
 
   const ticketHandler = async (e) => {
     e.preventDefault();
     if (ticketTitle.length === 0 || ticketDesc.length === 0) {
-      toast.error("موارد خالی را پر کنید");
+      toast.error("موارد خالی را پر کنید" , {
+        // position: "bottom-center",
+        style: {
+          borderRadius: '10px',
+          background: '#333d55',
+          color: '#fff',
+        }});
     } else {
-      await axiosPrivate.post("/api/ticket", {
-        TicketId: 0,
-        TicketDetailId: 0,
-        TicketProjectId: selectedProject.value,
-        TicketTypeId: selectedProject.value,
-        TicketStatusId: 0,
-        Title: ticketTitle,
-        Text: ticketDesc,
-      });
-
-      setTicketDesc("");
-      setTicketTitle("");
-      // console.log(ticketTitle, ticketDesc);
-      toast.success("پیام شما با موفقیت ثبت شد");
+      try {
+        await axiosPrivate.post("/api/ticket/", {
+          TicketId: 0,
+          TicketDetailId: 0,
+          TicketProjectId: selectedProject.value,
+          TicketTypeId: selectedProject.value,
+          TicketStatusId: 0,
+          Title: ticketTitle,
+          Text: ticketDesc,
+        });
+        setTicketDesc("");
+        setTicketTitle("");
+        toast("پیام شما با موفقیت ثبت شد");
+      } catch (err) {
+        toast.error(err?.response?.data);
+        console.log(err)
+      }
     }
   };
 
@@ -209,25 +202,6 @@ export default function CardSettings() {
                   />
                 </div>
               </div>
-
-              {/* <div className="w-full md:w-4/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    نام کاربری
-                  </label>
-                  <input
-                    value={auth.userName}
-                    readOnly
-                    name="name"
-                    type="email"
-                    className="cursor-not-allowed border-0  px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="user@example.com"
-                  />
-                </div>
-              </div> */}
             </div>
 
             <hr className="mt-6 border-b-1 border-blueGray-300" />
@@ -278,7 +252,7 @@ export default function CardSettings() {
             <button
               onClick={ticketHandler}
               style={{ float: "left", marginLeft: "10px" }}
-              className={`  rtl flex bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150`}
+              className={`rtl flex bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150`}
               type="submit"
             >
               ثبت درخواست
@@ -286,7 +260,7 @@ export default function CardSettings() {
           </form>
         </div>
       </div>
-      {msg && <Comment message={msg} />}
+      {/* {msg && <Comment message={msg} />} */}
     </>
   );
 }

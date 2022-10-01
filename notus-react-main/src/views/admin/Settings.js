@@ -5,7 +5,6 @@ import React from "react";
 import CardSettings from "components/Cards/CardSettings.js";
 import Sidebar from "components/Sidebar/Sidebar";
 import AdminNavbar from "components/Navbars/AdminNavbar";
-import useAuth from "hooks/useAuth";
 
 export default function Settings() {
 

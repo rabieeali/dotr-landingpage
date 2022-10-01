@@ -6,7 +6,8 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import useInput from "../../hooks/useInput";
 import useToggle from "../../hooks/useToggle";
 import axios from "../../api/axios";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import toast, { Toaster } from 'react-hot-toast';
 
 const LoginForm = () => {
   const { auth, setAuth } = useAuth();
@@ -116,7 +117,17 @@ const LoginForm = () => {
 
       navigate("/history");
 
-      toast.success(`${name} عزیز خوش آمدید`);
+      toast.success(`${name} عزیز خوش آمدید`, {
+        style: {
+          border: '1px solid red',
+          padding: '16px',
+          color: '#333d55',
+        },
+        iconTheme: {
+          primary: '#333d55',
+          secondary: '#FFFAEE',
+        },
+      });
     } catch (err) {
       console.log(err);
       if (!err?.response) {

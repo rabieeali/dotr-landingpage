@@ -24,6 +24,8 @@ import Settings from "views/admin/Settings";
 import PersistLogin from "components/PersistLogin";
 import RequireAuth from "components/RequireAuth";
 import Layout from "components/Layout";
+import TicketComment from "views/TicketComment";
+import { Toaster } from "react-hot-toast";
 
 const FORMS = {
   "/": "0", //	صفحه اصلی
@@ -54,12 +56,19 @@ ReactDOM.render(
           <Route element={<RequireAuth allowedForms={[FORMS.requestTicket]} />}>
             <Route path="/request-ticket" element={<Settings />} />
           </Route>
+          <Route element={<RequireAuth allowedForms={[FORMS.requestTicket]} />}>
+            <Route path="/user-ticketlist/:id" element={<TicketComment />} />
+          </Route>
         </Route>
 
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </BrowserRouter>
     <ToastContainer />
+    <Toaster
+      position="bottom-right"
+      reverseOrder={false}
+    />
   </AuthProvider>,
   document.getElementById("root")
 );
