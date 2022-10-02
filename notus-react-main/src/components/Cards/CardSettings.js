@@ -126,23 +126,27 @@ export default function CardSettings() {
           color: '#fff',
         }});
     } else {
-      try {
+      // try {
         await axiosPrivate.post("/api/ticket/", {
-          TicketId: 0,
-          TicketDetailId: 0,
-          TicketProjectId: selectedProject.value,
-          TicketTypeId: selectedProject.value,
-          TicketStatusId: 0,
-          Title: ticketTitle,
-          Text: ticketDesc,
+          
+      headers:{
+        TicketId: 10,
+        TicketDetailId: 10,
+        TicketProjectId: selectedProject.value,
+        TicketTypeId: selectedProject.value,
+        TicketStatusId: 0,
+        Title: ticketTitle,
+        Text: ticketDesc,
+      },
+      withCredentials:true,
         });
         setTicketDesc("");
         setTicketTitle("");
         toast("پیام شما با موفقیت ثبت شد");
-      } catch (err) {
-        toast.error(err?.response?.data);
-        console.log(err)
-      }
+      // } catch (err) {
+        // toast.error(err?.response?.data);
+        // console.log(err)
+      // }
     }
   };
 

@@ -32,7 +32,6 @@ export default function TicketComment() {
   const submitHandler = async () => {
     if (cmt.length === 0) {
       toast.error("موارد خالی را پر کنید" , {
-        // position: "bottom-center",
         style: {
           borderRadius: '10px',
           background: '#333d55',
@@ -40,7 +39,7 @@ export default function TicketComment() {
         }});
     } else {
       try {
-        const response = await axiosPrivate.post(
+      await axiosPrivate.post(
           `/api/ticket/GetTicketDetailList/${id}`,
           {
             TicketId: id,

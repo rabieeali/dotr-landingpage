@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import Footer from "components/Footers/Footer.js";
-import FsLightbox from "fslightbox-react";
+
 
 import "../assets/fonts/IRANSansWeb/Iransansx.css";
 
@@ -22,17 +22,11 @@ import FooterMain from "components/FooterMain";
 import laptop from "../assets/img/laptop.jpg";
 import GoogleMap from "components/googleMap/GoogleMap";
 
-import First from "../assets/img/screenshots/1.png";
-import Second from "../assets/img/screenshots/2.png";
-import Third from "../assets/img/screenshots/3.png";
-import Fourth from "../assets/img/screenshots/4.png";
-import Fifth from "../assets/img/screenshots/5.png";
-import Sixth from "../assets/img/screenshots/6.png";
-import Seventh from "../assets/img/screenshots/7.png";
-import Eighth from "../assets/img/screenshots/8.png";
+
+import ProjectCard from "components/ProjectCard";
 
 export default function Index() {
-  const [toggler, setToggler] = useState(false);
+
 
   return (
     <>
@@ -343,135 +337,14 @@ export default function Index() {
       </section>
       <section className="px-4 mb-24" id="lightbox">
         <h1 className="text-blueGray-700 text-3xl mb-2 font-semibold leading-normal text-2xl text-right border-divider">
-          سامانه نظارت
-        </h1>
-
-        <>
-          {/* <button onClick={() => setToggler(!toggler)}>Toggle Lightbox</button> */}
-          <FsLightbox
-            toggler={toggler}
-            sources={[
-              First,
-              Second,
-              Third,
-              Fourth,
-              Fifth,
-              Sixth,
-              Seventh,
-              Eighth,
-            ]}
-          />
-        </>
-
-        <div className="flex flex-wrap justify-center g-2">
-          <img
-            onClick={() => setToggler(!toggler)}
-            className="shadow-2xl rounded-5 lightbox-custom"
-            src={First}
-          />
-          <img
-            onClick={() => setToggler(!toggler)}
-            className="shadow-2xl rounded-5 lightbox-custom"
-            src={Second}
-          />
-          <img
-            onClick={() => setToggler(!toggler)}
-            className="shadow-2xl rounded-5 lightbox-custom"
-            src={Third}
-          />
-          <img
-            onClick={() => setToggler(!toggler)}
-            className="shadow-2xl rounded-5 lightbox-custom"
-            src={Fourth}
-          />
-          <img
-            onClick={() => setToggler(!toggler)}
-            className="shadow-2xl rounded-5 lightbox-custom"
-            src={Fifth}
-          />
-          <img
-            onClick={() => setToggler(!toggler)}
-            className="shadow-2xl rounded-5 lightbox-custom"
-            src={Sixth}
-          />
-          <img
-            onClick={() => setToggler(!toggler)}
-            className="shadow-2xl rounded-5 lightbox-custom"
-            src={Seventh}
-          />
-          <img
-            onClick={() => setToggler(!toggler)}
-            className="shadow-2xl rounded-5 lightbox-custom"
-            src={Eighth}
-          />
-        </div>
-      </section>      <section className="px-4 mb-24" id="lightbox">
-        <h1 className="text-blueGray-700 text-3xl mb-2 font-semibold leading-normal text-2xl text-right border-divider">
           پروژه ها
         </h1>
 
-        <>
-          {/* <button onClick={() => setToggler(!toggler)}>Toggle Lightbox</button> */}
-          <FsLightbox
-            toggler={toggler}
-            sources={[
-              First,
-              Second,
-              Third,
-              Fourth,
-              Fifth,
-              Sixth,
-              Seventh,
-              Eighth,
-            ]}
-          />
-        </>
 
-        <div className="flex flex-wrap justify-center g-2">
-        <img
-            onClick={() => setToggler(!toggler)}
-            className="shadow-2xl rounded-5 lightbox-custom"
-            src={First}
-          /><img
-          onClick={() => setToggler(!toggler)}
-          className="shadow-2xl rounded-5 lightbox-custom"
-          src={First}
-        />
-          {/* <img
-            onClick={() => setToggler(!toggler)}
-            className="shadow-2xl rounded-5 lightbox-custom"
-            src={Second}
-          /> */}
-          {/* <img
-            onClick={() => setToggler(!toggler)}
-            className="shadow-2xl rounded-5 lightbox-custom"
-            src={Third}
-          />
-          <img
-            onClick={() => setToggler(!toggler)}
-            className="shadow-2xl rounded-5 lightbox-custom"
-            src={Fourth}
-          />
-          <img
-            onClick={() => setToggler(!toggler)}
-            className="shadow-2xl rounded-5 lightbox-custom"
-            src={Fifth}
-          />
-          <img
-            onClick={() => setToggler(!toggler)}
-            className="shadow-2xl rounded-5 lightbox-custom"
-            src={Sixth}
-          />
-          <img
-            onClick={() => setToggler(!toggler)}
-            className="shadow-2xl rounded-5 lightbox-custom"
-            src={Seventh}
-          />
-          <img
-            onClick={() => setToggler(!toggler)}
-            className="shadow-2xl rounded-5 lightbox-custom"
-            src={Eighth}
-          /> */}
+
+        <div className="flex  flex-wrap justify-center g-2">
+          <ProjectCard   />  
+         
         </div>
       </section>
       <section className=" bg-blueGray-600 overflow-hidden">

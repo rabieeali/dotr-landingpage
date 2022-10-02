@@ -2,12 +2,12 @@ import React from "react";
 import { useRef, useState, useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
 
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import {useNavigate, useLocation } from "react-router-dom";
 import useInput from "../../hooks/useInput";
 import useToggle from "../../hooks/useToggle";
 import axios from "../../api/axios";
-// import { toast } from "react-toastify";
-import toast, { Toaster } from 'react-hot-toast';
+
+import toast, { Toaster } from "react-hot-toast";
 
 const LoginForm = () => {
   const { auth, setAuth } = useAuth();
@@ -37,8 +37,6 @@ const LoginForm = () => {
     return initialValue || "";
   });
 
-  console.log(val.username);
-  console.log(val.password);
 
   const tickHandler = (e) => {
     setTick(!tick);
@@ -106,7 +104,7 @@ const LoginForm = () => {
         fullName,
         userTypeName,
         userName,
-        forms
+        forms,
       });
 
       console.log("auth", auth);
@@ -119,13 +117,13 @@ const LoginForm = () => {
 
       toast.success(`${name} عزیز خوش آمدید`, {
         style: {
-          border: '1px solid red',
-          padding: '16px',
-          color: '#333d55',
+          border: "1px solid 333d55",
+          padding: "16px",
+          color: "#333d55",
         },
         iconTheme: {
-          primary: '#333d55',
-          secondary: '#FFFAEE',
+          primary: "#333d55",
+          secondary: "#FFFAEE",
         },
       });
     } catch (err) {
@@ -182,7 +180,6 @@ const LoginForm = () => {
                     value={user || val.username}
                     ref={userRef}
                     {...userAttribs}
-  
                     className="text-right border-0 px-3 py-3 placeholder-blueGray-300 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   />
                 </div>
@@ -227,20 +224,10 @@ const LoginForm = () => {
                     ورود
                   </button>
                 </div>
+                <div className="text-white mt-4">
+                  <small>فراموشی رمز عبور</small>
+                </div>
               </form>
-            </div>
-          </div>
-          <div
-            className="flex flex-wrap mt-6 relative"
-            style={{ paddingInline: "10px" }}
-          >
-            <div className="w-1/2" style={{ color: "#fff" }}>
-              <small>فراموشی رمز عبور</small>
-            </div>
-            <div className="w-1/2 text-right">
-              <Link to="/auth/register" className="text-blueGray-200">
-                <small>ثبت نام</small>
-              </Link>
             </div>
           </div>
         </div>
