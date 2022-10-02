@@ -1,19 +1,8 @@
 import FsLightbox from "fslightbox-react";
 import React, { useState } from "react";
-import First from "../assets/img/screenshots/1.png";
-import Second from "../assets/img/screenshots/2.png";
-import Third from "../assets/img/screenshots/3.png";
-import Fourth from "../assets/img/screenshots/4.png";
-import Fifth from "../assets/img/screenshots/5.png";
-import Sixth from "../assets/img/screenshots/6.png";
-import Seventh from "../assets/img/screenshots/7.png";
-import Eighth from "../assets/img/screenshots/8.png";
-
-import Beheshti from '../assets/img/beheshti.png'
 
 
-
-const ProjectCard = () => {
+const ProjectCard = (props) => {
   const [toggler, setToggler] = useState(false);
 
   return (
@@ -21,13 +10,13 @@ const ProjectCard = () => {
     <div className="project-card">
       <FsLightbox
         toggler={toggler}
-        sources={[First, Second, Third, Fourth, Fifth, Sixth, Seventh, Eighth]}
+        sources={props.images}
       />
       <div onClick={() => setToggler(!toggler)} className="relative max-w-sm rounded overflow-hidden shadow-lg">
-        <span className="watch"><img src={Beheshti}/></span>
+        <span className="watch"><img src={props.logo}/></span>
         <img
           className=" w-full rounded-5 lightbox-custom"
-          src={First}
+          src={props.thumbnail}
         />
         <div className="px-6 py-4">
           <div className="font-bold text-center mb-2">

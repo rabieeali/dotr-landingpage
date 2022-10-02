@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import Footer from "components/Footers/Footer.js";
 
-
 import "../assets/fonts/IRANSansWeb/Iransansx.css";
 
 import Laptop from "../assets/img/laptop.avif";
@@ -22,12 +21,19 @@ import FooterMain from "components/FooterMain";
 import laptop from "../assets/img/laptop.jpg";
 import GoogleMap from "components/googleMap/GoogleMap";
 
+import First from "../assets/img/screenshots/1.png";
+import Second from "../assets/img/screenshots/2.png";
+import Third from "../assets/img/screenshots/3.png";
+import Fourth from "../assets/img/screenshots/4.png";
+import Fifth from "../assets/img/screenshots/5.png";
+import Sixth from "../assets/img/screenshots/6.png";
+import Seventh from "../assets/img/screenshots/7.png";
+import Eighth from "../assets/img/screenshots/8.png";
+import Beheshti from "../assets/img/beheshti.png";
 
 import ProjectCard from "components/ProjectCard";
 
 export default function Index() {
-
-
   return (
     <>
       <IndexNavbar fixed />
@@ -340,11 +346,12 @@ export default function Index() {
           پروژه ها
         </h1>
 
-
-
         <div className="flex  flex-wrap justify-center g-2">
-          <ProjectCard   />  
-         
+          <ProjectCard
+            logo={Beheshti}
+            images={[First,Second,Third,Fourth,Fifth, Sixth, Seventh,Eighth]}
+            thumbnail={First}
+          />
         </div>
       </section>
       <section className=" bg-blueGray-600 overflow-hidden">
