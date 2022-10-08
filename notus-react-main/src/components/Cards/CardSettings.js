@@ -1,7 +1,7 @@
 import Comment from "components/Comment";
 import React, { useEffect, useState } from "react";
 // import { toast } from "react-toastify";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import Select from "react-select";
 
 import useAxiosPrivate from "hooks/useAxiosPrivate";
@@ -15,6 +15,8 @@ export default function CardSettings() {
 
   const [selectedProject, setSelectedProject] = useState(null);
   const [optionProject, setOptionProject] = useState("");
+
+  const [prevComments, setPrevComments] = useState([]);
 
   const axiosPrivate = useAxiosPrivate();
 
@@ -114,39 +116,44 @@ export default function CardSettings() {
     loadProjectCombo();
   }, [selectedTicketType]);
 
+  const getPreviousComments = async () => {
+    const res = await axiosPrivate.get(`/api/ticket/GetTicketDetailList/1`);
+    setPrevComments(res.data);
+  };
+
+  useEffect(() => {
+    getPreviousComments();
+  }, []);
 
   const ticketHandler = async (e) => {
     e.preventDefault();
     if (ticketTitle.length === 0 || ticketDesc.length === 0) {
-      toast.error("موارد خالی را پر کنید" , {
+      toast.error("موارد خالی را پر کنید", {
         // position: "bottom-center",
         style: {
-          borderRadius: '10px',
-          background: '#333d55',
-          color: '#fff',
-        }});
+          borderRadius: "10px",
+          background: "#333d55",
+          color: "#fff",
+        },
+      });
     } else {
-      // try {
+      try {
         await axiosPrivate.post("/api/ticket/", {
-          
-      headers:{
-        TicketId: 10,
-        TicketDetailId: 10,
-        TicketProjectId: selectedProject.value,
-        TicketTypeId: selectedProject.value,
-        TicketStatusId: 0,
-        Title: ticketTitle,
-        Text: ticketDesc,
-      },
-      withCredentials:true,
+          TicketId: 0,
+          TicketDetailId: 0,
+          TicketProjectId: selectedProject.value,
+          TicketTypeId: selectedProject.value,
+          TicketStatusId: 0,
+          Title: ticketTitle,
+          Text: ticketDesc,
         });
         setTicketDesc("");
         setTicketTitle("");
-        toast("پیام شما با موفقیت ثبت شد");
-      // } catch (err) {
-        // toast.error(err?.response?.data);
-        // console.log(err)
-      // }
+        toast("پیام شما باموفقیت ثبت شد");
+      } catch (err) {
+        toast.error(err?.response?.data);
+        console.log(err);
+      }
     }
   };
 
@@ -264,7 +271,8 @@ export default function CardSettings() {
           </form>
         </div>
       </div>
-      {/* {msg && <Comment message={msg} />} */}
+
+      <Comment prevComments={prevComments} />
     </>
   );
 }

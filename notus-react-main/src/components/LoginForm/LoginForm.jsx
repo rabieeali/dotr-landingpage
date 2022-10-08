@@ -2,7 +2,7 @@ import React from "react";
 import { useRef, useState, useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
 
-import {useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import useInput from "../../hooks/useInput";
 import useToggle from "../../hooks/useToggle";
 import axios from "../../api/axios";
@@ -37,7 +37,6 @@ const LoginForm = () => {
     return initialValue || "";
   });
 
-
   const tickHandler = (e) => {
     setTick(!tick);
     if (!tick) {
@@ -59,10 +58,7 @@ const LoginForm = () => {
   // const nam = "info@dotrco.com";
   // const ramz = "0062337793";
   const loginHandler = async (e) => {
-    console.log("submited");
-
     e.preventDefault();
-
     try {
       const response = await axios.post(
         LOGIN_URL,
@@ -107,7 +103,10 @@ const LoginForm = () => {
         forms,
       });
 
-      console.log("auth", auth);
+      // first dummy user : [ "0", "8", "9", "10", "2", "5" ]
+
+      // second dummu user : [ "0", "8", "9", "2", "5" ]
+
 
       resetUser();
 

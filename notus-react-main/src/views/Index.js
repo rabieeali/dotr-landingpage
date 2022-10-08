@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
@@ -19,7 +19,6 @@ import Radium from "../assets/img/radium.png";
 import "../index.css";
 import FooterMain from "components/FooterMain";
 import laptop from "../assets/img/laptop.jpg";
-import GoogleMap from "components/googleMap/GoogleMap";
 
 import First from "../assets/img/screenshots/1.png";
 import Second from "../assets/img/screenshots/2.png";
@@ -33,7 +32,9 @@ import Beheshti from "../assets/img/beheshti.png";
 
 import ProjectCard from "components/ProjectCard";
 
+
 export default function Index() {
+
   return (
     <>
       <IndexNavbar fixed />
@@ -45,7 +46,6 @@ export default function Index() {
           <div className="w-100 md:w-8/12 lg:w-6/12 xl:w-6/12">
             <div className=" text-center flex flex-col justify-center sm:pt-0">
               <h2
-                s
                 className="blur font-semibold w-full text-4xl md:text-4xl text-white "
               >
                 راه حل نهایی مسائل شما
@@ -349,7 +349,16 @@ export default function Index() {
         <div className="flex  flex-wrap justify-center g-2">
           <ProjectCard
             logo={Beheshti}
-            images={[First,Second,Third,Fourth,Fifth, Sixth, Seventh,Eighth]}
+            images={[
+              First,
+              Second,
+              Third,
+              Fourth,
+              Fifth,
+              Sixth,
+              Seventh,
+              Eighth,
+            ]}
             thumbnail={First}
           />
         </div>
@@ -358,7 +367,6 @@ export default function Index() {
         <div className="container mx-auto pb-64">
           <div className="flex flex-wrap justify-center space-x-10">
             <div className="w-full md:w-5/12 px-12 md:px-4 ml-auto mr-auto md:mt-64">
-              <GoogleMap />
             </div>
             <div className="w-full md:w-5/12 px-12 md:px-4 ml-auto mr-auto md:mt-64">
               <p className="text-3xl font-bold text-white mt-32 text-center">
@@ -395,7 +403,7 @@ export default function Index() {
             <div className="w-full text-center lg:w-8/12">
               <h3 className="font-semibold text-3xl pb-4">شبکه های اجتماعی</h3>
 
-              <p className="text-blueGray-500 text-lg leading-relaxed mt-4 mb-4">
+              <div className="text-blueGray-500 text-lg leading-relaxed mt-4 mb-4">
                 <div
                   style={{ fontSize: "3rem" }}
                   className="media flex justify-between"
@@ -413,7 +421,7 @@ export default function Index() {
                     <strong className="text-sm ">اینستاگرام</strong>
                   </div>
                 </div>
-              </p>
+              </div>
 
               <div className="text-center mt-16"></div>
             </div>

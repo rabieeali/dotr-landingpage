@@ -1,6 +1,7 @@
 /*eslint-disable*/
-import React from "react";
+import React, { useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { gsap } from "gsap";
 // components
 
 import IndexDropdown from "components/Dropdowns/IndexDropdown.js";
@@ -8,11 +9,17 @@ import IndexDropdown from "components/Dropdowns/IndexDropdown.js";
 import Logo from "../../assets/img/logo.png";
 import Quote from "../../assets/img/quote-logo.png";
 
+
 export default function Navbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+
+
+
   return (
     <>
-      <nav className="bg-blueGray-700 top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px- py-3 navbar-expand-lg shadow">
+      <nav
+        className="bg-blueGray-700 top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px- py-3 navbar-expand-lg shadow"
+      >
         <div className="container px- mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <Link to="/" className=" ">
@@ -108,11 +115,12 @@ export default function Navbar(props) {
                 </a>
               </li>
               <li className="flex justify-center items-center">
-         
-                  <NavLink to='/auth/login' className="hover:text-blueGray-500 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
-                    ورود
-                  </NavLink>
-               
+                <NavLink
+                  to="/auth"
+                  className="hover:text-blueGray-500 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+                >
+                  ورود
+                </NavLink>
               </li>
             </ul>
           </div>
