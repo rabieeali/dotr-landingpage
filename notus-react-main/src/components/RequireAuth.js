@@ -10,7 +10,7 @@ console.log("allowedForms>>", allowedForms)
         auth?.forms?.find(form => allowedForms?.includes(form))
             ? <Outlet />
             : auth?.accessToken //changed from user to accessToken to persist login after refresh
-                ? <Navigate to="/history" state={{ from: location }} replace />
+                ? <Navigate to="/" state={{ from: location }} replace />
                 : <Navigate to="/auth" state={{ from: location }} replace />
     );
 }

@@ -11,6 +11,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 const LoginForm = () => {
   const { auth, setAuth } = useAuth();
+  console.log("auth from login", auth);
 
   const LOGIN_URL = "/api/auth"; // for server publish
   const navigate = useNavigate();
@@ -88,6 +89,7 @@ const LoginForm = () => {
       const fullName = jResponse?.FullName;
       const userTypeName = jResponse?.UserTypeName;
       const userName = jResponse?.UserName;
+      const userTypeId = jResponse?.UserTypeId;
       // const placeGroups = jResponse?.PlaceGroups;
 
       // const roles = response?.data?.roles;
@@ -101,12 +103,12 @@ const LoginForm = () => {
         userTypeName,
         userName,
         forms,
+        userTypeId,
       });
 
       // first dummy user : [ "0", "8", "9", "10", "2", "5" ]
 
       // second dummu user : [ "0", "8", "9", "2", "5" ]
-
 
       resetUser();
 

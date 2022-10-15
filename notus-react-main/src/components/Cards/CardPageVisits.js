@@ -2,17 +2,27 @@ import { v4 as uuidv4 } from "uuid";
 import useAxiosPrivate from "hooks/useAxiosPrivate";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useAuth from "hooks/useAuth";
+import Modal from "components/Modal";
 
 export default function CardPageVisits() {
   const axiosPrivate = useAxiosPrivate();
   const [ticketList, setTicketList] = useState();
+  const { auth } = useAuth();
+
+
 
   const getUserTicketList = async () => {
-    const response = await axiosPrivate.get("/api/ticket/GetAllTicketList/");
+    const response = await axiosPrivate.get(
+      `/api/ticket/GetAllTicketList/${auth.userId}`
+    );
     const data = JSON.parse(response?.data);
     setTicketList(data);
   };
-  console.log("ticket list", ticketList);
+
+  const closeTicketHandler = async (TicketId) => {
+    await axiosPrivate.post("/api/closeticket", { TicketId });
+  };
 
   useEffect(() => {
     getUserTicketList();
@@ -54,6 +64,7 @@ export default function CardPageVisits() {
                   پروژه
                 </th>
                 <th className="text-right px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"></th>
+                <th className="text-right px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"></th>
               </tr>
             </thead>
             <tbody>
@@ -65,8 +76,12 @@ export default function CardPageVisits() {
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     {`${ticket.Title} (${ticket.TicketTypeName})`}
                   </td>
-                  <td className={` ${ticket.TicketStatusId === 0 ?"text-danger": ""} border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4`}>
-                    {ticket.TicketStatusId === 0 ? "باز" : "بسته"}
+                  <td
+                    className={` ${
+                      ticket.TicketStatusId === 0|| 1 || 2 ? "text-danger" : ""
+                    } border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4`}
+                  >
+                    {ticket.TicketStatusId === 0 || 1 || 2 ? "باز" : "بسته"}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     {ticket.SaveDate.split(" ")[0]}
@@ -76,16 +91,30 @@ export default function CardPageVisits() {
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     <Link
-                      state={{
-                        TicketTypeName: ticket.TicketTypeName,
-                        TicketProjectName: ticket.TicketProjectName,
-                      }}
+                      // state={{
+                      //   TicketTypeName: ticket.TicketTypeName,
+                      //   TicketProjectName: ticket.TicketProjectName,
+                      // }}
                       to={`/user-ticketlist/${ticket.TicketId}`}
                     >
                       <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
                         مشاهده
                       </button>
                     </Link>
+                  </td>
+                  <td>
+                    <Modal
+                      clickHandler={() => closeTicketHandler(ticket.TicketId)}
+                      header="شما در حال بستن تیکت هستید"
+                      text="آیا مطمئن هستید؟"
+                      btnText="بستن"
+                    />
+                    {/* <button
+                      onClick={closeTicketHandler}
+                      className="bg-red-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    >
+                      بستن
+                    </button> */}
                   </td>
                 </tr>
               ))}

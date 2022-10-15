@@ -8,13 +8,18 @@ import AdminNavbar from "components/Navbars/AdminNavbar";
 import { useParams } from "react-router-dom";
 import useAxiosPrivate from "hooks/useAxiosPrivate";
 import Comment from "components/Comment";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
+import useAuth from "hooks/useAuth";
 
 export default function TicketComment() {
   const { id } = useParams();
   const axiosPrivate = useAxiosPrivate();
   const [ticketComments, setTicketComments] = useState();
   const [cmt, setCmt] = useState("");
+
+  const auth = useAuth();
+
+  console.log("cm", auth);
 
   const getTicketComments = async () => {
     const response = await axiosPrivate.get(
@@ -31,26 +36,30 @@ export default function TicketComment() {
 
   const submitHandler = async () => {
     if (cmt.length === 0) {
-      toast.error("موارد خالی را پر کنید" , {
+      toast.error("موارد خالی را پر کنید", {
         style: {
-          borderRadius: '10px',
-          background: '#333d55',
-          color: '#fff',
-        }});
+          borderRadius: "10px",
+          background: "#333d55",
+          color: "#fff",
+        },
+      });
     } else {
       try {
-      await axiosPrivate.post(
-          `/api/ticket/GetTicketDetailList/${id}`,
-          {
-            TicketId: id,
-            TicketDetailId: 0,
-            // TicketProjectId: selectedProject.value,
-            // TicketTypeId: selectedProject.value,
-            TicketStatusId: 0,
-            // Title: ticketTitle,
-            Text: cmt,
-          }
-        );
+        const response = await axiosPrivate.post(`/api/ticket/`, {
+          TicketId: id,
+          TicketDetailId: 0,
+          TicketProjectId: 0,
+          TicketTypeId: 0,
+          TicketStatusId: auth.userTypeId === 1 || 2 ? 2 : 1,
+          Title: "",
+          Text: cmt,
+        }); //==> it returns a number (id of comment) , if ith's over 0 you need to render again
+        window. location. reload()
+        Number(response?.data) > 0
+          ? toast.success("با موفقیت ذخیره شد")
+          : toast.error("خطا");
+       
+
       } catch (err) {
         console.log(err);
         toast.error(err?.message);
@@ -92,6 +101,7 @@ export default function TicketComment() {
               placeholder=" درخواست..."
             ></textarea>
           </div>
+          <hr/>
           <Comment ticketComments={ticketComments} />
         </div>
       </div>

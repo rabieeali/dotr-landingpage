@@ -5,21 +5,26 @@ import { Link } from "react-router-dom";
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
 
-
-import Logo from '../../assets/img/logo.png' 
+import Logo from "../../assets/img/logo.png";
+import useAuth from "hooks/useAuth";
+import { FORMS } from "index";
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
+  const { auth } = useAuth();
 
+  console.log("havij", auth);
 
-const style={
-  direction : 'rtl'
-}
-
+  const style = {
+    direction: "rtl",
+  };
 
   return (
     <>
-      <nav style={style} className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
+      <nav
+        style={style}
+        className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
+      >
         <div className="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
           {/* Toggler */}
           <button
@@ -35,7 +40,7 @@ const style={
             className="text-6xl font-bold text-center leading-normal mt-0 mb-2 text-lightBlue-800"
             to="/"
           >
-           <img src={Logo} className='bg-darkBlue-700 icon-sidebar' />
+            <img src={Logo} className="bg-darkBlue-700 icon-sidebar" />
           </Link>
           {/* User */}
           <ul className="md:hidden items-center flex flex-wrap list-none">
@@ -94,11 +99,13 @@ const style={
             </h6>
             {/* Navigation */}
 
-            <ul style={style} className="md:flex-col md:min-w-full flex flex-col list-none">
-            <li className="items-center">
+            <ul
+              style={style}
+              className="md:flex-col md:min-w-full flex flex-col list-none"
+            >
+              <li className="items-center">
                 <Link
                   className={
-
                     "py-3 font-bold block " +
                     (window.location.href.indexOf("/admin/settings") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
@@ -106,14 +113,7 @@ const style={
                   }
                   to="/request-ticket"
                 >
-                  <i
-                    className={
-                      "fa fa-ticket-alt text-lg ml-2  " +
-                      (window.location.href.indexOf("/admin/settings") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
+                  <i className="fa fa-ticket-alt text-lg ml-2 opacity-75 "></i>{" "}
                   درخواست تیکت
                 </Link>
               </li>
@@ -128,19 +128,28 @@ const style={
                   }
                   to="/history"
                 >
-                  <i
-                    className={
-                      "fas fa-folder text-lg ml-2 " +
-                      (window.location.href.indexOf("/admin/dashboard") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
+                  <i className="fas fa-folder text-lg ml-2 opacity-75"></i>{" "}
                   سوابق
                 </Link>
               </li>
-
-            
+              {auth.forms.includes(FORMS.ticketManage) ? (
+                <li className="items-center">
+                  <Link
+                    className={
+                      " py-3 font-bold block " +
+                      (window.location.href.indexOf("/admin/dashboard") !== -1
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")
+                    }
+                    to="/admin-history"
+                  >
+                    <i className={"fa fa-users text-lg ml-2 opacity-75"}></i>
+                    همه سوابق
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
 
               {/* <li className="items-center">
                 <Link
@@ -163,7 +172,6 @@ const style={
                   سوابق
                 </Link>
               </li> */}
-
             </ul>
 
             {/* Divider */}

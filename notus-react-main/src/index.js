@@ -15,6 +15,7 @@ import Auth from "layouts/Auth.js";
 import Index from "views/Index.js";
 import Ticket from "views/Ticket";
 import NotFound from "views/NotFound";
+import AdminHistory from "views/AdminHistory"
 import { AuthProvider } from "context/AuthProvider";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { ToastContainer } from "react-toastify";
@@ -27,7 +28,7 @@ import Layout from "components/Layout";
 import TicketComment from "views/TicketComment";
 import { Toaster } from "react-hot-toast";
 
-const FORMS = {
+export const FORMS = {
   "/": "0", //	صفحه اصلی
   "users": "1", //	لیست کاربران
   "profile": "2", //	پروفایل کاربر
@@ -36,7 +37,7 @@ const FORMS = {
   "changePassword": "5", //	تغییر رمز عبور
   "history": "8", //	تیکت های من
   "requestTicket": "9", //	تیکت پشتیبانی
-  "ticket-manage": "10", //	مدیریت تیکت ها
+  "ticketManage": "10", //	مدیریت تیکت ها
 };
 
 ReactDOM.render(
@@ -50,6 +51,9 @@ ReactDOM.render(
         {/* auth required routes */}
 
         <Route element={<PersistLogin />}>
+          <Route element={<RequireAuth allowedForms={[FORMS.ticketManage]} />}>
+            <Route path="/admin-history" element={<AdminHistory />} />
+          </Route>
           <Route element={<RequireAuth allowedForms={[FORMS.history]} />}>
             <Route path="/history" element={<Dashboard />} />
           </Route>

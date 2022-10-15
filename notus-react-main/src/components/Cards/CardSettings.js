@@ -142,7 +142,7 @@ export default function CardSettings() {
           TicketId: 0,
           TicketDetailId: 0,
           TicketProjectId: selectedProject.value,
-          TicketTypeId: selectedProject.value,
+          TicketTypeId: selectedTicketType.value,
           TicketStatusId: 0,
           Title: ticketTitle,
           Text: ticketDesc,

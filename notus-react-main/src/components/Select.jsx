@@ -1,7 +1,6 @@
 
 const Select = ({ value, options, name, onChange }) => {
 
-  console.log(options)
 
   return (
     <>
