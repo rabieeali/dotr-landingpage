@@ -13,8 +13,6 @@ export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   const { auth } = useAuth();
 
-  console.log("havij", auth);
-
   const style = {
     direction: "rtl",
   };
@@ -118,7 +116,7 @@ export default function Sidebar() {
                 </Link>
               </li>
 
-              <li className="items-center">
+              {/* <li className="items-center">
                 <Link
                   className={
                     " py-3 font-bold block " +
@@ -131,7 +129,9 @@ export default function Sidebar() {
                   <i className="fas fa-folder text-lg ml-2 opacity-75"></i>{" "}
                   سوابق
                 </Link>
-              </li>
+              </li> */}
+
+
               {auth.forms.includes(FORMS.ticketManage) ? (
                 <li className="items-center">
                   <Link
@@ -148,7 +148,20 @@ export default function Sidebar() {
                   </Link>
                 </li>
               ) : (
-                ""
+                <li className="items-center">
+                <Link
+                  className={
+                    " py-3 font-bold block " +
+                    (window.location.href.indexOf("/admin/dashboard") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }
+                  to="/history"
+                >
+                  <i className="fas fa-folder text-lg ml-2 opacity-75"></i>{" "}
+                  سوابق
+                </Link>
+              </li>
               )}
 
               {/* <li className="items-center">

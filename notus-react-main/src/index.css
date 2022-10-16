@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'iranSansRegular';
+  src: url('./assets/fonts/IRANSansWeb/IRANSansWeb_Regular.ttf') format('ttf'), /* IE6–8 */
+  url('./assets/fonts/IRANSansWeb/IRANSansWeb_Regular.woff2') format('woff2'), /* Chrome36+, Opera24+*/
+  url('./assets/fonts/IRANSansWeb/IRANSansWeb_Regular.woff') format('woff'); /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  font-weight: normal;
+}
+
 .tech-bg {
   /* The image used */
   background-image: url("./assets//img/tech-bg.png");
@@ -107,7 +115,7 @@
 }
 
 .bg-card-600 {
-  background-color: rgb(51, 65, 85, 1);
+  background-color: #334155;
 }
 .bg-card-500 {
   background-color: rgba(51, 65, 85, 0.9);
@@ -189,7 +197,12 @@
 .text-danger {
   color: #ff5252;
 }
-
+.bg-light-danger{
+  background-color: #ff0a0a31;
+}
+.bg-danger{
+  background-color: #ff0a0a;
+}
 .g-2 {
   gap: 2rem;
 }
@@ -237,7 +250,7 @@
   color: #fff;
   font-size: 2.5em;
   font-weight: 700;
-  background-color: rgba(51, 61, 85, 0.4);
+  background-color: #333d5566;
   transition: all ease-in-out .3s;
   cursor: pointer;
 }
@@ -255,4 +268,40 @@
   right: 0; 
   margin-left: auto; 
   margin-right: auto; 
+}
+
+.bg-disabled {
+  background-color: #e0e0e0;
+}
+
+.text-default{
+  color: #333d55;
+}
+
+.IRANSans {
+  font-family: 'iranSansRegular';
+  font-weight: 900;  
+}
+
+.loader {
+  display: block;
+  margin: auto;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #333d55;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

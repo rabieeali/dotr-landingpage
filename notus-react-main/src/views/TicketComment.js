@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 // import CardSettings from "components/Cards/CardSettings.js";
 import Sidebar from "components/Sidebar/Sidebar";
 import AdminNavbar from "components/Navbars/AdminNavbar";
-import { useParams } from "react-router-dom";
+import { useParams , useLocation } from "react-router-dom";
 import useAxiosPrivate from "hooks/useAxiosPrivate";
 import Comment from "components/Comment";
 import toast, { Toaster } from "react-hot-toast";
@@ -18,8 +18,8 @@ export default function TicketComment() {
   const [cmt, setCmt] = useState("");
 
   const auth = useAuth();
-
-  console.log("cm", auth);
+  const location = useLocation();
+  const TicketStatusId = location.state.TicketStatusId;
 
   const getTicketComments = async () => {
     const response = await axiosPrivate.get(
@@ -29,6 +29,14 @@ export default function TicketComment() {
     setTicketComments(data);
   };
   console.log("ticket comments", ticketComments);
+
+
+
+
+
+
+
+
 
   useEffect(() => {
     getTicketComments();
@@ -84,9 +92,10 @@ export default function TicketComment() {
                 ارسال نظر جدید
               </label>
               <button
+              disabled={TicketStatusId == 3 ? true : false}
                 onClick={submitHandler}
                 type="submit"
-                className=" bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                className={` ${TicketStatusId == 3 ? "bg-disabled" : "bg-lightBlue-500  active:bg-lightBlue-600"} text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150`}
               >
                 ارسال
               </button>
