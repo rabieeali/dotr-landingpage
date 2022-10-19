@@ -1,4 +1,7 @@
-import React from "react";
+import useAxiosPrivate from "hooks/useAxiosPrivate";
+import useAxiosPrivateFile from "hooks/useAxiosPrivateFile";
+import React, { useEffect } from "react";
+import { FaPaperclip } from "react-icons/fa";
 
 import user from "../assets/img/user.png";
 
@@ -12,6 +15,21 @@ const Comment = ({ ticketComments }) => {
   // TicketTypeId: selectedProject.value,
   // TicketStatusId: 0,
   // Title: ticketTitle,
+
+  // const axiosPrivateFile = useAxiosPrivateFile();
+  // const axios = useAxiosPrivate();
+
+  // const getFiles = async () => {
+  //   const URL = "/api/FileUpload/" ;
+  //   const res = await axios.get(URL);
+  //   const data = res?.data;
+  //   console.log(data);
+  // };
+
+
+  // useEffect(() => {
+  //   getFiles();
+  // }, []);
 
   return (
     <>
@@ -28,19 +46,18 @@ const Comment = ({ ticketComments }) => {
             <div className=" flex w-full items-center justify-between">
               <img style={{ width: "40px", height: "40px" }} src={user} />
               <span className="ml-auto px-2 mr-1">{cmt.FullName}</span>
-
-              <p className={` text-sm 
+              <div className="flex flex-col">
+                <p
+                  className={` text-sm 
   
-            `}>
-                {cmt.Date.split(" ")[0]} - {cmt.Date.split(" ")[1]}
-              </p>
-            </div>
-            {/* <div className="flex my-2 px-12 text-sm ml-auto">
-              <p className="text-white text-sm">
-                {cmt.TicketProjectName} - {cmt.TicketTypeName} 
-              </p>
-            </div> */}
+            `}
+                >
+                  {cmt.Date.split(" ")[0]} - {cmt.Date.split(" ")[1]}
+                </p>
 
+                <FaPaperclip className="mr-auto mt-2 cursor-pointer hover:text-red-600" />
+              </div>
+            </div>
             <p className="text-right ml-auto m-4">
               <i className="px-2 text-white fa fa-comment"></i>
               {cmt.Text}

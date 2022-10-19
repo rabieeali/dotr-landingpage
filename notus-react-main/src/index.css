@@ -3,10 +3,12 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'iranSansRegular';
-  src: url('./assets/fonts/IRANSansWeb/IRANSansWeb_Regular.ttf') format('ttf'), /* IE6–8 */
-  url('./assets/fonts/IRANSansWeb/IRANSansWeb_Regular.woff2') format('woff2'), /* Chrome36+, Opera24+*/
-  url('./assets/fonts/IRANSansWeb/IRANSansWeb_Regular.woff') format('woff'); /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  font-family: "iranSansRegular";
+  src: url("./assets/fonts/IRANSansWeb/IRANSansWeb_Regular.ttf") format("ttf"),
+    /* IE6–8 */ url("./assets/fonts/IRANSansWeb/IRANSansWeb_Regular.woff2")
+      format("woff2"),
+    /* Chrome36+, Opera24+*/
+      url("./assets/fonts/IRANSansWeb/IRANSansWeb_Regular.woff") format("woff"); /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
   font-weight: normal;
 }
 
@@ -197,19 +199,14 @@
 .text-danger {
   color: #ff5252;
 }
-.bg-light-danger{
+.bg-light-danger {
   background-color: #ff0a0a31;
 }
-.bg-danger{
+.bg-danger {
   background-color: #ff0a0a;
 }
 .g-2 {
   gap: 2rem;
-}
-
-.lightbox-custom {
-  /* width:50%; */
-  /* height: 500px; */
 }
 
 #lightbox {
@@ -251,36 +248,36 @@
   font-size: 2.5em;
   font-weight: 700;
   background-color: #333d5566;
-  transition: all ease-in-out .3s;
+  transition: all ease-in-out 0.3s;
   cursor: pointer;
 }
 .watch:hover {
   opacity: 1;
 }
-.bg-white{
+.bg-white {
   background-color: #fff;
 }
 
-#modal{
+#modal {
   position: absolute;
-  top: 0; 
-  left: 0; 
-  right: 0; 
-  margin-left: auto; 
-  margin-right: auto; 
+  top: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .bg-disabled {
   background-color: #e0e0e0;
 }
 
-.text-default{
+.text-default {
   color: #333d55;
 }
 
 .IRANSans {
-  font-family: 'iranSansRegular';
-  font-weight: 900;  
+  font-family: "iranSansRegular";
+  font-weight: 900;
 }
 
 .loader {
@@ -291,17 +288,44 @@
   border-top: 16px solid #333d55;
   width: 120px;
   height: 120px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
+  -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
 }
 
-/* Safari */
 @-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.drop-it-here {
+  width: 100%;
+  margin-right: auto;
+  background-color: #335548;
+  color: #fff;
+  padding: 1rem;
+  font-size: 14px;
+  border-radius: 5px;
+}
+.upload-icon {
+  font-size: 5rem;
+}
+.cm-section {
+  font-size: 1.25em;
+  font-weight: bold;
+  border-bottom: #333d55 4px solid;
+  width: fit-content;
+  padding: 0 15px;
 }

@@ -1,6 +1,7 @@
 /*eslint-disable*/
 import React from "react";
 import { Link } from "react-router-dom";
+import { FaHistory, FaTicketAlt } from "react-icons/fa";
 
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
@@ -111,26 +112,12 @@ export default function Sidebar() {
                   }
                   to="/request-ticket"
                 >
-                  <i className="fa fa-ticket-alt text-lg ml-2 opacity-75 "></i>{" "}
+                  <span className="flex gap-1" >
+                  <FaTicketAlt className=" text-lg ml-2 opacity-75 " />
                   درخواست تیکت
+                  </span>
                 </Link>
               </li>
-
-              {/* <li className="items-center">
-                <Link
-                  className={
-                    " py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/dashboard") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                  to="/history"
-                >
-                  <i className="fas fa-folder text-lg ml-2 opacity-75"></i>{" "}
-                  سوابق
-                </Link>
-              </li> */}
-
 
               {auth.forms.includes(FORMS.ticketManage) ? (
                 <li className="items-center">
@@ -143,25 +130,28 @@ export default function Sidebar() {
                     }
                     to="/admin-history"
                   >
-                    <i className={"fa fa-users text-lg ml-2 opacity-75"}></i>
+                  <span className="flex align-middle gap-1" >
+
+                    <FaHistory  className=" text-lg ml-2 opacity-75 " />
                     همه سوابق
+                  </span>
                   </Link>
                 </li>
               ) : (
                 <li className="items-center">
-                <Link
-                  className={
-                    " py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/dashboard") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                  to="/history"
-                >
-                  <i className="fas fa-folder text-lg ml-2 opacity-75"></i>{" "}
-                  سوابق
-                </Link>
-              </li>
+                  <Link
+                    className={
+                      " py-3 font-bold block " +
+                      (window.location.href.indexOf("/admin/dashboard") !== -1
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")
+                    }
+                    to="/history"
+                  >
+                    <i className="fas fa-folder text-lg ml-2 opacity-75"></i>{" "}
+                    سوابق
+                  </Link>
+                </li>
               )}
 
               {/* <li className="items-center">
