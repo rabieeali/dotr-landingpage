@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 // components
 
@@ -109,7 +110,7 @@ export default function TicketComment() {
             toast.error("ذخیره ناموفق");
           }
           toast.success("با موفقیت ذخیره شد");
-          // window.location.reload();
+          window.location.reload();
         } else {
           toast.error("خطا");
         }
@@ -266,7 +267,7 @@ export default function TicketComment() {
                   return (
                     <div
                       className="mt-1 mb-0 shadow-none border dz-processing dz-image-preview dz-success dz-complete"
-                      key={i + "-file"}
+                      key={uuidv4()}
                     >
                       <div className="p-2">
                         <div className="align-items-center">

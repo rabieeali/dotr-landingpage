@@ -3,7 +3,8 @@ import useAxiosPrivate from "hooks/useAxiosPrivate";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "hooks/useAuth";
-import Modal from "components/Modal";
+// import Modal from "components/Modal";
+import Modal from "react-modal";
 import { FORMS } from "index";
 import Spinner from "components/Spinner";
 
@@ -14,12 +15,41 @@ export default function CardPageVisits() {
   const [status, setStatus] = useState("1");
   const [search, setSearch] = useState();
   const [val, setVal] = useState([]);
-  const [isTicketClosed, setIsTicketClosed] = useState(false);
+  // const [isTicketClosed, setIsTicketClosed] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
   const { auth } = useAuth();
+
+
+console.log("ticketList=========", ticketList);
+
+  
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      backgroundColor: "#333d55",
+      color: "#fff",
+      minWidth: "400px",
+    },
+  };
+  Modal.setAppElement("#root");
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   const closeTicketHandler = async (TicketId) => {
     await axiosPrivate.post("/api/closeticket", { TicketId });
-    setIsTicketClosed(!isTicketClosed);
+    closeModal();
+    window.location.reload();
   };
 
   const getFilter = async () => {
@@ -50,7 +80,7 @@ export default function CardPageVisits() {
 
   useEffect(() => {
     getFilter();
-  }, [isTicketClosed, status, search]);
+  }, [status, search]);
 
   return (
     <>
@@ -78,11 +108,7 @@ export default function CardPageVisits() {
         </div>
         <div className="rtl block w-full overflow-x-auto">
           {/* Projects table */}
-          {loading && (
-            
-             <Spinner />
-            
-          )}
+          {loading && <Spinner />}
           <table className="rtl text-right items-center w-full bg-transparent border-collapse">
             <thead className="rtl text-center">
               <tr className="text-right">
@@ -160,15 +186,50 @@ export default function CardPageVisits() {
                     </td>
                     <td>
                       {auth.forms.includes(FORMS.ticketManage) && (
-                        <Modal
-                          canClick={ticket.TicketStatusId === 3 ? true : false}
-                          clickHandler={() =>
-                            closeTicketHandler(ticket.TicketId)
-                          }
-                          header="شما در حال بستن تیکت هستید"
-                          text="آیا مطمئن هستید؟"
-                          btnText="بستن"
-                        />
+                        <>
+                          <button
+                            disabled={
+                              ticket.TicketStatusId === 3 ? true : false
+                            }
+                            className={` ${
+                              ticket.TicketStatusId === 3
+                                ? "bg-light-danger"
+                                : "bg-danger"
+                            }  text-white active:bg-red-200 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150`}
+                            onClick={openModal}
+                          >
+                            بستن
+                          </button>
+                          <Modal
+                            isOpen={modalIsOpen}
+                            onRequestClose={closeModal}
+                            style={customStyles}
+                            contentLabel="Example Modal"
+                          >
+                            <div className="rtl flex flex-col g-2">
+                              <header className="font-bold">
+                                شما در حال بستن تیکت هستید
+                              </header>
+                              <div>آیا مطمئن هستید؟</div>
+                              <footer className="flex flex-row-reverse g-2">
+                                <button
+                                  className="bg-red-500 text-white active:bg-red-200 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                  onClick={closeModal}
+                                >
+                                  خیر
+                                </button>
+                                <button
+                                  className=""
+                                  onClick={() =>
+                                    closeTicketHandler(ticket.TicketId)
+                                  }
+                                >
+                                  بله
+                                </button>
+                              </footer>
+                            </div>
+                          </Modal>
+                        </>
                       )}
                     </td>
                   </tr>

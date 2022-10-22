@@ -1,26 +1,22 @@
 /*eslint-disable*/
-import React, { useRef } from "react";
+import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { gsap } from "gsap";
+
 // components
 
 import IndexDropdown from "components/Dropdowns/IndexDropdown.js";
 
 import Logo from "../../assets/img/logo.png";
 import Quote from "../../assets/img/quote-logo.png";
-
+import { FaBars } from "react-icons/fa";
 
 export default function Navbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
 
-
-
   return (
     <>
-      <nav
-        className="bg-blueGray-700 top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px- py-3 navbar-expand-lg shadow"
-      >
-        <div className="container px- mx-auto flex flex-wrap items-center justify-between">
+      <nav className="bg-blueGray-700 top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px- py-3 navbar-expand-lg shadow">
+        <div className="bg-blueGray-700 container px- mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <Link to="/" className=" ">
               <div
@@ -46,30 +42,37 @@ export default function Navbar(props) {
               type="button"
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
-              <i className="fas fa-bars"></i>
+              <FaBars />
             </button>
           </div>
           <div
             className={
-              "lg:flex flex-grow items-center bg-white lg:bg-opacity-0 lg:shadow-none" +
+              "lg:flex bg-blueGray-700 flex-grow items-center  lg:bg-opacity-0 lg:shadow-none" +
               (navbarOpen ? " block" : " hidden")
             }
             id="example-navbar-warning"
           >
-            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto text-white bg-blueGray-700">
-              <li className="flex items-center">
-                <IndexDropdown />
-              </li>
-              <li className="flex justify-center items-center">
+            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto text-white ">
+              <li className="flex  justify-center items-center">
                 <a
                   className="hover:text-blueGray-500 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold "
-                  href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdemos.creative-tim.com%2Fnotus-react%2F%23%2F"
-                  target="_blank"
+                  href="#nav-contact-us"
+                  >
+                  <span className="hidden lg:inline-block ml-2">تماس با ما</span>
+                  <span className="lg:hidden inline-block ml-2">تماس با ما</span>
+                </a>
+              </li>
+
+              <li className="flex justify-center items-center">
+                <a
+                  className="hover:text-blueGray-500 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+                  href="#nav-projects"
+               
                 >
-                  {/* <i className="text-blueGray-400 fab fa-facebook text-lg leading-lg " /> */}
-                  تماس با ما
+                   <span className="hidden lg:inline-block ml-2">پروژه ها</span>
+                 
                   <span className="lg:hidden inline-block ml-2">
-                    تماس با ما
+                  پروژه ها
                   </span>
                 </a>
               </li>
@@ -77,12 +80,13 @@ export default function Navbar(props) {
               <li className="flex justify-center items-center">
                 <a
                   className="hover:text-blueGray-500 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fdemos.creative-tim.com%2Fnotus-react%2F%23%2F&text=Start%20your%20development%20with%20a%20Free%20Tailwind%20CSS%20and%20React%20UI%20Kit%20and%20Admin.%20Let%20Notus%20React%20amaze%20you%20with%20its%20cool%20features%20and%20build%20tools%20and%20get%20your%20project%20to%20a%20whole%20new%20level.%20"
-                  target="_blank"
+                  href="#nav-network"
+               
                 >
-                  شبکه و زیرساخت
+                   <span className="hidden lg:inline-block ml-2">  شبکه و زیرساخت </span>
+                 
                   <span className="lg:hidden inline-block ml-2">
-                    شبکه و زیرساخت{" "}
+                    شبکه و زیرساخت
                   </span>
                 </a>
               </li>
@@ -90,11 +94,11 @@ export default function Navbar(props) {
               <li className="flex justify-center items-center">
                 <a
                   className="hover:text-blueGray-500 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="https://github.com/creativetimofficial/notus-react?ref=nr-index-navbar"
-                  target="_blank"
+                  href="#nav-software"
+                
                 >
-                  {/* <i className="text-blueGray-400 fab fa-github text-lg leading-lg " /> */}
-                  محصولات نرم افزاری
+                   <span className="hidden lg:inline-block ml-2">محصولات نرم افزاری</span>
+               
                   <span className="lg:hidden inline-block ml-2">
                     محصولات نرم افزاری
                   </span>
@@ -104,13 +108,12 @@ export default function Navbar(props) {
               <li className="flex justify-center items-center">
                 <a
                   className="hover:text-blueGray-500 text-white px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href="https://github.com/creativetimofficial/notus-react?ref=nr-index-navbar"
-                  target="_blank"
+                  href="#nav-about-us"
                 >
-                  {/* <i className="text-blueGray-400 fab fa-github text-lg leading-lg " /> */}
+             <span className="hidden lg:inline-block ml-2">درباره ما</span>
+
+                  <span className="lg:hidden inline-block ml-2">
                   درباره ما
-                  <span className="lg:hidden inline-block ml-2">
-                    محصولات نرم افزاری
                   </span>
                 </a>
               </li>
