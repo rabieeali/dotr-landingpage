@@ -362,3 +362,7 @@ html {
   margin:auto;
   padding: 3px;
 }
+
+.mx-1{
+  margin: 0 5px!important;
+}

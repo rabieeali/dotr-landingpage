@@ -3,7 +3,6 @@ import useAxiosPrivate from "hooks/useAxiosPrivate";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "hooks/useAuth";
-// import Modal from "components/Modal";
 import Modal from "react-modal";
 import { FORMS } from "index";
 import Spinner from "components/Spinner";
@@ -15,14 +14,14 @@ export default function CardPageVisits() {
   const [status, setStatus] = useState("1");
   const [search, setSearch] = useState();
   const [val, setVal] = useState([]);
-  // const [isTicketClosed, setIsTicketClosed] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
+
+
+
   const { auth } = useAuth();
 
 
-console.log("ticketList=========", ticketList);
 
-  
   const customStyles = {
     content: {
       top: "50%",
@@ -59,6 +58,8 @@ console.log("ticketList=========", ticketList);
         (!auth.forms.includes(FORMS.ticketManage) ? auth.userId : "")
     );
     const data = await JSON.parse(response?.data);
+
+
     let hasSearch = data?.filter((el) => el.Title.includes(search));
     setVal(hasSearch);
 
@@ -69,6 +70,7 @@ console.log("ticketList=========", ticketList);
       const filteredTickets = data.filter(
         (ticket) => ticket.TicketStatusId !== 3
       );
+
       setTicketList(filteredTickets);
     } else if (status === "3") {
       const filteredTickets = data.filter(
@@ -147,94 +149,90 @@ console.log("ticketList=========", ticketList);
               </tr>
             </thead>
             <tbody>
-              {(ticketList && val.length === 0 ? ticketList : val).map(
-                (ticket, index) => (
-                  <tr
-                    key={uuidv4()}
-                    className="divider text-right border-bottom"
+              {(ticketList && val.length === 0
+                ? ticketList.reverse()
+                : val.reverse()
+              ).map((ticket, index) => (
+                <tr key={uuidv4()} className="divider text-right border-bottom">
+                  <th className="text-right border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                    {index + 1}
+                  </th>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {`${ticket.Title} (${ticket.TicketTypeName})`}
+                  </td>
+                  <td
+                    className={` ${
+                      ticket.TicketStatusId === 3
+                        ? "text-blueGray-500"
+                        : "text-danger"
+                    } border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4`}
                   >
-                    <th className="text-right border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                      {index + 1}
-                    </th>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                      {`${ticket.Title} (${ticket.TicketTypeName})`}
-                    </td>
-                    <td
-                      className={` ${
-                        ticket.TicketStatusId === 3
-                          ? "text-blueGray-500"
-                          : "text-danger"
-                      } border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4`}
+                    {ticket.TicketStatusId === 3 ? "بسته" : "باز"}
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {ticket.SaveDate.split(" ")[0]}
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {ticket.TicketProjectName}
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    <Link
+                      state={{ TicketStatusId: ticket.TicketStatusId }}
+                      to={`/user-ticketlist/${ticket.TicketId}`}
                     >
-                      {ticket.TicketStatusId === 3 ? "بسته" : "باز"}
-                    </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                      {ticket.SaveDate.split(" ")[0]}
-                    </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                      {ticket.TicketProjectName}
-                    </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                      <Link
-                        state={{ TicketStatusId: ticket.TicketStatusId }}
-                        to={`/user-ticketlist/${ticket.TicketId}`}
-                      >
-                        <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
-                          مشاهده
+                      <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                        مشاهده
+                      </button>
+                    </Link>
+                  </td>
+                  <td>
+                    {auth.forms.includes(FORMS.ticketManage) && (
+                      <>
+                        <button
+                          disabled={ticket.TicketStatusId === 3 ? true : false}
+                          className={` ${
+                            ticket.TicketStatusId === 3
+                              ? "bg-light-danger"
+                              : "bg-danger"
+                          }  text-white active:bg-red-200 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150`}
+                          onClick={openModal}
+                        >
+                          بستن
                         </button>
-                      </Link>
-                    </td>
-                    <td>
-                      {auth.forms.includes(FORMS.ticketManage) && (
-                        <>
-                          <button
-                            disabled={
-                              ticket.TicketStatusId === 3 ? true : false
-                            }
-                            className={` ${
-                              ticket.TicketStatusId === 3
-                                ? "bg-light-danger"
-                                : "bg-danger"
-                            }  text-white active:bg-red-200 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150`}
-                            onClick={openModal}
-                          >
-                            بستن
-                          </button>
-                          <Modal
-                            isOpen={modalIsOpen}
-                            onRequestClose={closeModal}
-                            style={customStyles}
-                            contentLabel="Example Modal"
-                          >
-                            <div className="rtl flex flex-col g-2">
-                              <header className="font-bold">
-                                شما در حال بستن تیکت هستید
-                              </header>
-                              <div>آیا مطمئن هستید؟</div>
-                              <footer className="flex flex-row-reverse g-2">
-                                <button
-                                  className="bg-red-500 text-white active:bg-red-200 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                  onClick={closeModal}
-                                >
-                                  خیر
-                                </button>
-                                <button
-                                  className=""
-                                  onClick={() =>
-                                    closeTicketHandler(ticket.TicketId)
-                                  }
-                                >
-                                  بله
-                                </button>
-                              </footer>
-                            </div>
-                          </Modal>
-                        </>
-                      )}
-                    </td>
-                  </tr>
-                )
-              )}
+                        <Modal
+                          isOpen={modalIsOpen}
+                          onRequestClose={closeModal}
+                          style={customStyles}
+                          contentLabel="Example Modal"
+                        >
+                          <div className="rtl flex flex-col g-2">
+                            <header className="font-bold">
+                              شما در حال بستن تیکت هستید
+                            </header>
+                            <div>آیا مطمئن هستید؟</div>
+                            <footer className="flex flex-row-reverse g-2">
+                              <button
+                                className="bg-red-500 text-white active:bg-red-200 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                onClick={closeModal}
+                              >
+                                خیر
+                              </button>
+                              <button
+                                className=""
+                                onClick={() =>
+                                  closeTicketHandler(ticket.TicketId)
+                                }
+                              >
+                                بله
+                              </button>
+                            </footer>
+                          </div>
+                        </Modal>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
